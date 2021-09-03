@@ -13,6 +13,12 @@
 		E980145A26E1F14400A2A39B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E980145926E1F14400A2A39B /* Preview Assets.xcassets */; };
 		E980145C26E1F14400A2A39B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980145B26E1F14400A2A39B /* Persistence.swift */; };
 		E980145F26E1F14400A2A39B /* GitRepD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E980145D26E1F14400A2A39B /* GitRepD.xcdatamodeld */; };
+		E980146726E1F38600A2A39B /* GitRepDRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980146626E1F38600A2A39B /* GitRepDRouter.swift */; };
+		E980146926E1F39500A2A39B /* GitRepDInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980146826E1F39500A2A39B /* GitRepDInteractor.swift */; };
+		E980146B26E1F3AE00A2A39B /* GitRepDPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980146A26E1F3AE00A2A39B /* GitRepDPresenter.swift */; };
+		E980146D26E1F3FE00A2A39B /* GitRepDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980146C26E1F3FE00A2A39B /* GitRepDView.swift */; };
+		E980146F26E1F49800A2A39B /* UserRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980146E26E1F49800A2A39B /* UserRepositories.swift */; };
+		E980147326E1FEDF00A2A39B /* SingleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147226E1FEDF00A2A39B /* SingleRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		E980145B26E1F14400A2A39B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		E980145E26E1F14400A2A39B /* GitRepD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GitRepD.xcdatamodel; sourceTree = "<group>"; };
 		E980146026E1F14400A2A39B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E980146626E1F38600A2A39B /* GitRepDRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRepDRouter.swift; sourceTree = "<group>"; };
+		E980146826E1F39500A2A39B /* GitRepDInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRepDInteractor.swift; sourceTree = "<group>"; };
+		E980146A26E1F3AE00A2A39B /* GitRepDPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRepDPresenter.swift; sourceTree = "<group>"; };
+		E980146C26E1F3FE00A2A39B /* GitRepDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRepDView.swift; sourceTree = "<group>"; };
+		E980146E26E1F49800A2A39B /* UserRepositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositories.swift; sourceTree = "<group>"; };
+		E980147226E1FEDF00A2A39B /* SingleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,11 +69,14 @@
 			isa = PBXGroup;
 			children = (
 				E980145226E1F14400A2A39B /* GitRepDApp.swift */,
+				E980146626E1F38600A2A39B /* GitRepDRouter.swift */,
+				E980147426E2102700A2A39B /* Entities */,
+				E980146826E1F39500A2A39B /* GitRepDInteractor.swift */,
+				E980146C26E1F3FE00A2A39B /* GitRepDView.swift */,
+				E980146A26E1F3AE00A2A39B /* GitRepDPresenter.swift */,
 				E980145426E1F14400A2A39B /* ContentView.swift */,
 				E980145626E1F14400A2A39B /* Assets.xcassets */,
-				E980145B26E1F14400A2A39B /* Persistence.swift */,
 				E980146026E1F14400A2A39B /* Info.plist */,
-				E980145D26E1F14400A2A39B /* GitRepD.xcdatamodeld */,
 				E980145826E1F14400A2A39B /* Preview Content */,
 			);
 			path = GitRepD;
@@ -73,6 +88,17 @@
 				E980145926E1F14400A2A39B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E980147426E2102700A2A39B /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				E980146E26E1F49800A2A39B /* UserRepositories.swift */,
+				E980147226E1FEDF00A2A39B /* SingleRepository.swift */,
+				E980145B26E1F14400A2A39B /* Persistence.swift */,
+				E980145D26E1F14400A2A39B /* GitRepD.xcdatamodeld */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,9 +170,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E980146B26E1F3AE00A2A39B /* GitRepDPresenter.swift in Sources */,
+				E980147326E1FEDF00A2A39B /* SingleRepository.swift in Sources */,
 				E980145C26E1F14400A2A39B /* Persistence.swift in Sources */,
+				E980146F26E1F49800A2A39B /* UserRepositories.swift in Sources */,
 				E980145526E1F14400A2A39B /* ContentView.swift in Sources */,
+				E980146926E1F39500A2A39B /* GitRepDInteractor.swift in Sources */,
 				E980145326E1F14400A2A39B /* GitRepDApp.swift in Sources */,
+				E980146726E1F38600A2A39B /* GitRepDRouter.swift in Sources */,
+				E980146D26E1F3FE00A2A39B /* GitRepDView.swift in Sources */,
 				E980145F26E1F14400A2A39B /* GitRepD.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

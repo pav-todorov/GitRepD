@@ -13,7 +13,10 @@ struct GitRepDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            
+            GitRepDView()
+            
+//            ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
