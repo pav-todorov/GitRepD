@@ -19,6 +19,9 @@
 		E980146D26E1F3FE00A2A39B /* GitRepDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980146C26E1F3FE00A2A39B /* GitRepDView.swift */; };
 		E980146F26E1F49800A2A39B /* UserRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980146E26E1F49800A2A39B /* UserRepositories.swift */; };
 		E980147326E1FEDF00A2A39B /* SingleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147226E1FEDF00A2A39B /* SingleRepository.swift */; };
+		E980147926E21DBB00A2A39B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147826E21DBB00A2A39B /* Constants.swift */; };
+		E980147B26E2423800A2A39B /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147A26E2423800A2A39B /* DataModel.swift */; };
+		E980147E26E247F300A2A39B /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147D26E247F300A2A39B /* RepositoryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		E980146C26E1F3FE00A2A39B /* GitRepDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRepDView.swift; sourceTree = "<group>"; };
 		E980146E26E1F49800A2A39B /* UserRepositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositories.swift; sourceTree = "<group>"; };
 		E980147226E1FEDF00A2A39B /* SingleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleRepository.swift; sourceTree = "<group>"; };
+		E980147826E21DBB00A2A39B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E980147A26E2423800A2A39B /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		E980147D26E247F300A2A39B /* RepositoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,8 @@
 		E980145126E1F14400A2A39B /* GitRepD */ = {
 			isa = PBXGroup;
 			children = (
+				E980147C26E247D500A2A39B /* Functional Views */,
+				E980147726E21DA500A2A39B /* Utility */,
 				E980145226E1F14400A2A39B /* GitRepDApp.swift */,
 				E980146626E1F38600A2A39B /* GitRepDRouter.swift */,
 				E980147426E2102700A2A39B /* Entities */,
@@ -96,9 +104,26 @@
 				E980146E26E1F49800A2A39B /* UserRepositories.swift */,
 				E980147226E1FEDF00A2A39B /* SingleRepository.swift */,
 				E980145B26E1F14400A2A39B /* Persistence.swift */,
+				E980147A26E2423800A2A39B /* DataModel.swift */,
 				E980145D26E1F14400A2A39B /* GitRepD.xcdatamodeld */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		E980147726E21DA500A2A39B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				E980147826E21DBB00A2A39B /* Constants.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		E980147C26E247D500A2A39B /* Functional Views */ = {
+			isa = PBXGroup;
+			children = (
+				E980147D26E247F300A2A39B /* RepositoryCell.swift */,
+			);
+			path = "Functional Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,11 +196,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E980146B26E1F3AE00A2A39B /* GitRepDPresenter.swift in Sources */,
+				E980147926E21DBB00A2A39B /* Constants.swift in Sources */,
 				E980147326E1FEDF00A2A39B /* SingleRepository.swift in Sources */,
 				E980145C26E1F14400A2A39B /* Persistence.swift in Sources */,
 				E980146F26E1F49800A2A39B /* UserRepositories.swift in Sources */,
+				E980147B26E2423800A2A39B /* DataModel.swift in Sources */,
 				E980145526E1F14400A2A39B /* ContentView.swift in Sources */,
 				E980146926E1F39500A2A39B /* GitRepDInteractor.swift in Sources */,
+				E980147E26E247F300A2A39B /* RepositoryCell.swift in Sources */,
 				E980145326E1F14400A2A39B /* GitRepDApp.swift in Sources */,
 				E980146726E1F38600A2A39B /* GitRepDRouter.swift in Sources */,
 				E980146D26E1F3FE00A2A39B /* GitRepDView.swift in Sources */,

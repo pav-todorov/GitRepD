@@ -14,7 +14,17 @@ class GitRepDPresenter: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
+    @Published var userRepositories: [UserRepositories] = []
+    
     init(interactor: GitRepDInteractor) {
         self.interactor = interactor
+        
+        interactor.model.$userRepositories
+            .assign(to: \.userRepositories, on: self)
+            .store(in: &cancellables)
+    }
+    
+    func fetchUserRepositories() {
+        interactor.loadRepositories()
     }
 }
