@@ -13,45 +13,24 @@ struct GitRepDView: View {
     
     var body: some View {
         
-        VStack {
-            List {
-                ForEach(presenter.userRepositories, id: \.id) { repository in
-                    Text(repository.name)
-                }
-                .onDelete(perform: { indexSet in
-                    print("\(indexSet) is deleted.")
-                })
-            } //: List
-            .listStyle(InsetGroupedListStyle())
-            .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.3), radius: 12)
-            .padding(.vertical, 0)
-            .frame(maxWidth: 640)
-            
-            Spacer()
-            
-            Button(action: {
-                presenter.fetchUserRepositories()
-            }, label: {
-                Text("Button")
-            })
-            
-            TabView{
-                ContentView()
-                    .tabItem {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
-                    }
-                ContentView()
-                    .tabItem {
-                        Image(systemName: "star")
-                        Text("Favorites")
-                    }
+            TabView {
+                SearchView(repositories: presenter.userRepositories)
+                        .tabItem {
+                            Image(systemName: "magnifyingglass")
+                            Text("Search")
+                        }
+                    .onAppear(perform: {
+                        presenter.fetchUserRepositories()
+                    })
                 
+                    ContentView()
+                        .tabItem {
+                            Image(systemName: "star")
+                            Text("Favorites")
+                        }
+                    
             } //: TabView
-            .edgesIgnoringSafeArea(.top)
-
-        } //: VStack
-        .navigationBarTitle("User repositories")
+        
     }
 }
 

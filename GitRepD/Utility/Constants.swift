@@ -8,7 +8,8 @@
 import Foundation
 
 // MARK: -  Endpoints
-var userRepositories: String = "https://api.github.com/users/octocat/repos"
+let userRepositories: String = "https://api.github.com/users/octocat/repos"
+let dummyUserRepo = UserRepositories(id: 1, name: "Repo Name", owner: Owner(login: "Account Name", avatar_url: "Avatar URL"))
 
 // MARK: -  UI
 // MARK: -  UX
