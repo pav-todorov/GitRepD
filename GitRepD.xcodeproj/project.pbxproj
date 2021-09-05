@@ -23,6 +23,7 @@
 		E980147B26E2423800A2A39B /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147A26E2423800A2A39B /* DataModel.swift */; };
 		E980147E26E247F300A2A39B /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147D26E247F300A2A39B /* RepositoryCell.swift */; };
 		E980148026E24EF700A2A39B /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147F26E24EF700A2A39B /* SearchView.swift */; };
+		E9BD495F26E4DEAB00651FCC /* EmptySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD495E26E4DEAB00651FCC /* EmptySearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		E980147A26E2423800A2A39B /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		E980147D26E247F300A2A39B /* RepositoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 		E980147F26E24EF700A2A39B /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		E9BD495E26E4DEAB00651FCC /* EmptySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				E980146826E1F39500A2A39B /* GitRepDInteractor.swift */,
 				E980146C26E1F3FE00A2A39B /* GitRepDView.swift */,
 				E980147F26E24EF700A2A39B /* SearchView.swift */,
+				E9BD495E26E4DEAB00651FCC /* EmptySearchView.swift */,
 				E980146A26E1F3AE00A2A39B /* GitRepDPresenter.swift */,
 				E980145426E1F14400A2A39B /* ContentView.swift */,
 				E980145626E1F14400A2A39B /* Assets.xcassets */,
@@ -198,6 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9BD495F26E4DEAB00651FCC /* EmptySearchView.swift in Sources */,
 				E980146B26E1F3AE00A2A39B /* GitRepDPresenter.swift in Sources */,
 				E980147926E21DBB00A2A39B /* Constants.swift in Sources */,
 				E980147326E1FEDF00A2A39B /* SingleRepository.swift in Sources */,
@@ -344,7 +348,7 @@
 				DEVELOPMENT_TEAM = 87GZ4V994Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GitRepD/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,7 +370,7 @@
 				DEVELOPMENT_TEAM = 87GZ4V994Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GitRepD/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

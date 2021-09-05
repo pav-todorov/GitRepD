@@ -24,7 +24,11 @@ class GitRepDPresenter: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func fetchUserRepositories() {
-        interactor.loadRepositories()
+    func fetchUserRepositories(for user: String) {
+        interactor.loadRepositories(for: user)
+    }
+    
+    func clearArrayOfRepositories() {
+        interactor.clearArrayOfRepositories()
     }
 }

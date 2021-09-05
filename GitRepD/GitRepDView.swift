@@ -14,14 +14,11 @@ struct GitRepDView: View {
     var body: some View {
         
             TabView {
-                SearchView(repositories: presenter.userRepositories)
+                SearchView(presenter: presenter)
                         .tabItem {
                             Image(systemName: "magnifyingglass")
                             Text("Search")
                         }
-                    .onAppear(perform: {
-                        presenter.fetchUserRepositories()
-                    })
                 
                     ContentView()
                         .tabItem {

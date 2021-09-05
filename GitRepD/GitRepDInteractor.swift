@@ -14,8 +14,8 @@ class GitRepDInteractor {
         self.model = model
     }
 
-    func loadRepositories() {
-        guard let url = URL(string: userRepositories) else {
+    func loadRepositories(for userName: String) {
+        guard let url = URL(string: "https://api.github.com/users/\(userName)/repos") else {
             print("Invalid URL")
         
             return
@@ -28,10 +28,6 @@ class GitRepDInteractor {
             if let data = data {
                 if let decodedResponse: [UserRepositories] = try? JSONDecoder().decode([UserRepositories].self, from: data) {
                     // we have good data – go back to the main thread
-                    DispatchQueue.main.async {
-                        // update our UI
-//                        self.results = decodedResponse.results
-                    }
                     
                     for index in decodedResponse {
                         DispatchQueue.main.async {
@@ -53,6 +49,10 @@ class GitRepDInteractor {
         }.resume()
 
         
+    }
+    
+    func clearArrayOfRepositories() {
+        self.model.userRepositories = []
     }
     
 }

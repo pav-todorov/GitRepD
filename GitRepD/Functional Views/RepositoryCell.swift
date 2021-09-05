@@ -9,16 +9,27 @@ import SwiftUI
 
 struct RepositoryCell: View {
     // MARK: -  Properties
+    let repositoryAvatar: String
     let userName: String
     let repositoryName: String
     
     // MARK: -  Body
     var body: some View {
         HStack {
-            Image(systemName: "photo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 45, height: 45, alignment: .leading)
+            AsyncImage(url: URL(string: repositoryAvatar)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                
+            } placeholder: {
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 45, height: 45, alignment: .leading)
+            }
+            .frame(width: 45, height: 45, alignment: .leading)
+            
+            
             
             VStack(alignment: .leading) {
                 Text(userName)
@@ -37,7 +48,7 @@ struct RepositoryCell: View {
 // MARK: -  Preview
 struct RepositoryCell_Previews: PreviewProvider {
     static var previews: some View {
-        RepositoryCell(userName: "User Name", repositoryName: "Repository name")
+        RepositoryCell(repositoryAvatar: "", userName: "User Name", repositoryName: "Repository name")
             .previewLayout(.sizeThatFits)
             .padding()
     }
