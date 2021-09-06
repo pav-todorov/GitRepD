@@ -13,20 +13,21 @@ struct GitRepDView: View {
     
     var body: some View {
         
-            TabView {
-                SearchView(presenter: presenter)
-                        .tabItem {
-                            Image(systemName: "magnifyingglass")
-                            Text("Search")
-                        }
-                
-                    ContentView()
-                        .tabItem {
-                            Image(systemName: "star")
-                            Text("Favorites")
-                        }
-                    
-            } //: TabView
+        TabView {
+            SearchView(presenter: presenter)
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Search")
+                }
+            
+            //                    ContentView()
+            ContentView()
+                .tabItem {
+                    Image(systemName: "star")
+                    Text("Favorites")
+                }
+            
+        } //: TabView
         
     }
 }

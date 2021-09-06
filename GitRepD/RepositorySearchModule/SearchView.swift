@@ -11,35 +11,36 @@ import Combine
 struct SearchView: View {
     
     // MARK: -  Properties
-    @State var repositories: [UserRepositories] = []
-    var presenter: GitRepDPresenter
+    @ObservedObject var presenter: GitRepDPresenter
     @State var searchText: String = ""
-    
-    var searchResults: [UserRepositories] {
-        if searchText.isEmpty {
-            presenter.clearArrayOfRepositories()
-            return presenter.userRepositories
-        } else {
-            presenter.fetchUserRepositories(for: searchText)
-            
-            return presenter.userRepositories
-            //            return repositories.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        }
-    }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(searchResults, id: \.id) { repository in
-                    RepositoryCell(repositoryAvatar: repository.owner.avatar_url, userName: repository.name, repositoryName: repository.owner.login)
-                    
+                ForEach(presenter.userRepositories, id: \.id) { repository in
+                    self.presenter.linkBuilder(for: repository) {
+                        RepositoryCell (
+                            repositoryAvatar: repository.owner.avatar_url,
+                            userName: repository.name,
+                            repositoryName: repository.owner.login
+                        )
+                    }
                 } //: ForEach
-                
                 .onDelete(perform: { indexSet in
                     print("\(indexSet) is deleted.")
                 })
             } //: List
             .searchable(text: $searchText, prompt: "Search for a repository...")
+            .onChange(of: searchText, perform: { newValue in
+                if !newValue.isEmpty {
+                    async {
+                        await presenter.fetchUserRepositories(for: newValue.trimmingCharacters(in: .whitespacesAndNewlines))
+                    }
+                    
+                } else {
+                    presenter.clearArrayOfRepositories()
+                }
+            })
             .listStyle(InsetGroupedListStyle())
             .padding(.vertical, 0)
             .frame(maxWidth: 640)

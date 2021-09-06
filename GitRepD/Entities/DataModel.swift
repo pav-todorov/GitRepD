@@ -11,4 +11,5 @@ final class DataModel {
 //    private let persistence = PersistenceController()
 
     @Published var userRepositories: [UserRepositories] = []
+    @Published var singleRepository: SingleRepository?
 }

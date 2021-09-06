@@ -24,11 +24,17 @@ class GitRepDPresenter: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func fetchUserRepositories(for user: String) {
-        interactor.loadRepositories(for: user)
+    func fetchUserRepositories(for user: String) async {
+        await interactor.loadRepositories(for: user)
     }
     
     func clearArrayOfRepositories() {
         interactor.clearArrayOfRepositories()
     }
-}
+    
+    func linkBuilder<Content: View>(for repository: UserRepositories, @ViewBuilder content: () -> Content
+    ) -> some View {
+      NavigationLink(destination: router.makeGitRepDDetailView(for: repository, model: interactor.model)) {
+        content()
+      }
+    }  }

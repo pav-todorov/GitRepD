@@ -10,35 +10,43 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Repository.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Repository>
-
+    
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+        
+        NavigationView {
+            List {
+                ForEach(items) { item in
+                    Text(item.name!)
+                }
+                .onDelete(perform: deleteItems)
             }
-            .onDelete(perform: deleteItems)
-        }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
-
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
+            .toolbar {
+//            #if os(iOS)
+//                EditButton()
+//                Button(action: addItem) {
+//                    Label("Add item", systemImage: "plus")
+//                }
+//            #endif
+                
+                Button(action: addItem) {
+                    Label("Add Item", systemImage: "plus")
+                }
             }
         }
     }
-
     private func addItem() {
         withAnimation {
             let newItem = Repository(context: viewContext)
             newItem.timestamp = Date()
-
+            
+            newItem.url = "kjndfsjnsdf"
+            newItem.name = "Test"
+            
             do {
                 try viewContext.save()
             } catch {
@@ -49,11 +57,11 @@ struct ContentView: View {
             }
         }
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {
