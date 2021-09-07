@@ -17,10 +17,10 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             List {
-                self.presenter.linkBuilder(for: dummyUserRepo) {
-                RepositoryCell(repositoryAvatar: dummyUserRepo.owner.avatar_url, userName: dummyUserRepo.owner.login, repositoryName: dummyUserRepo.name)
-                }
-
+                //                self.presenter.linkBuilder(for: dummyUserRepo) {
+                //                RepositoryCell(repositoryAvatar: dummyUserRepo.owner.avatar_url, userName: dummyUserRepo.owner.login, repositoryName: dummyUserRepo.name)
+                //                }
+                
                 ForEach(presenter.userRepositories, id: \.id) { repository in
                     self.presenter.linkBuilder(for: repository) {
                         RepositoryCell (
@@ -28,23 +28,42 @@ struct SearchView: View {
                             userName: repository.name,
                             repositoryName: repository.owner.login
                         )
-                                            }
+                    }
                 } //: ForEach
                 .onDelete(perform: { indexSet in
                     print("\(indexSet) is deleted.")
                 })
             } //: List
             .searchable(text: $searchText, prompt: "Search for a repository...")
-            .onChange(of: searchText, perform: { newValue in
-                if !newValue.isEmpty {
-                    async {
-                        await presenter.fetchUserRepositories(for: newValue.trimmingCharacters(in: .whitespacesAndNewlines))
+            .onSubmit(of: SubmitTriggers.search) {
+                presenter.clearArrayOfRepositories()
+                if (!searchText.isEmpty){
+                    Task {
+                        await presenter.fetchUserRepositories(for: searchText.trimmingCharacters(in: .whitespacesAndNewlines))
                     }
+                    
                     
                 } else {
                     presenter.clearArrayOfRepositories()
                 }
+                
+            }
+            .onChange(of: searchText, perform: { newValue in
+                if newValue.isEmpty {
+                    presenter.clearArrayOfRepositories()
+                }
             })
+//            .onChange(of: searchText, perform: { newValue in
+//                if !newValue.isEmpty {
+//                    Task {
+//                        await presenter.fetchUserRepositories(for: newValue.trimmingCharacters(in: .whitespacesAndNewlines))
+//                    }
+//
+//
+//                } else {
+//                    presenter.clearArrayOfRepositories()
+//                }
+//            })
             .listStyle(InsetGroupedListStyle())
             .padding(.vertical, 0)
             .frame(maxWidth: 640)

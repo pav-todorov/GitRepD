@@ -12,7 +12,7 @@ struct FavoritesView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Repository.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Repository.timestamp, ascending: false)],
         animation: .default)
     private var items: FetchedResults<Repository>
     

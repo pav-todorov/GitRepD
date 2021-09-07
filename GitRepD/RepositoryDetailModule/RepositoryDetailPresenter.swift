@@ -10,14 +10,13 @@ import Combine
 import CoreData
 
 class RepositoryDetailPresenter: ObservableObject {
-
-    
     private let interactor: RepositoryDetailInteractor
     private let router: RepositoryDetailRouter?
     
     private var cancellables = Set<AnyCancellable>()
     
     @Published var singleRepository: SingleRepository?
+    @Published var isRepositoryInDatabase: Bool = false
     
     init(interactor: RepositoryDetailInteractor) {
         self.interactor = interactor
@@ -26,13 +25,25 @@ class RepositoryDetailPresenter: ObservableObject {
         self.interactor.model.$singleRepository
             .assign(to: \.singleRepository, on: self)
             .store(in: &cancellables)
+        
+        self.interactor.$isRepositoryInDatabase
+            .assign(to: \.isRepositoryInDatabase, on: self)
+            .store(in: &cancellables)
     }
     
-    func getselectedRepository() {
-        interactor.getSingleRepository()
+    func getselectedRepository() async {
+        await interactor.getSingleRepository()
     }
     
     func addItemToDatabase(for context: NSManagedObjectContext) {
         self.interactor.addItem(for: context)
+    }
+    
+    func isInDatabase(for context: NSManagedObjectContext) async -> Bool {
+        return await self.interactor.isInDatabase(for: context)
+    }
+    
+    func removeItemFromDatabase(for context: NSManagedObjectContext){
+        self.interactor.removeItemFromDatabase(for: context)
     }
 }
