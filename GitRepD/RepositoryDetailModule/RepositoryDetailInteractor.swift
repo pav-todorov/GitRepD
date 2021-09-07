@@ -5,10 +5,13 @@
 //  Created by Pavel on 6.09.21.
 //
 
-import Foundation
+import SwiftUI
 import Combine
+import CoreData
 
 class RepositoryDetailInteractor {
+    
+    
     let model: DataModel
     private let repository: UserRepositories
     
@@ -56,8 +59,31 @@ class RepositoryDetailInteractor {
         
                 }.resume()
         
-        
-
-        
+    }
+    
+    func addItem(for context: NSManagedObjectContext) {
+        withAnimation {
+            let newItem = Repository(context: context)
+            if let singleRepo = self.model.singleRepository {
+                newItem.id = Int32(singleRepo.id)
+                newItem.timestamp = Date()
+                newItem.name = self.model.singleRepository!.name
+            }
+//            newItem.repoId = model.singleRepository.id
+  
+//            newItem.dateCreated = self.model.singleRepository!.created_at
+//            newItem.languageUsed = model.singleRepository!.language
+////            newItem.description = self.model.singleRepository?.description
+//            newItem.url = self.model.singleRepository!.url
+            
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 }

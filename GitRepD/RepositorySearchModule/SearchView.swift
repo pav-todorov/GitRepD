@@ -17,6 +17,10 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             List {
+                self.presenter.linkBuilder(for: dummyUserRepo) {
+                RepositoryCell(repositoryAvatar: dummyUserRepo.owner.avatar_url, userName: dummyUserRepo.owner.login, repositoryName: dummyUserRepo.name)
+                }
+
                 ForEach(presenter.userRepositories, id: \.id) { repository in
                     self.presenter.linkBuilder(for: repository) {
                         RepositoryCell (
@@ -24,7 +28,7 @@ struct SearchView: View {
                             userName: repository.name,
                             repositoryName: repository.owner.login
                         )
-                    }
+                                            }
                 } //: ForEach
                 .onDelete(perform: { indexSet in
                     print("\(indexSet) is deleted.")

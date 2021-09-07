@@ -21,7 +21,7 @@ struct GitRepDView: View {
                 }
             
             //                    ContentView()
-            ContentView()
+            FavoritesView()
                 .tabItem {
                     Image(systemName: "star")
                     Text("Favorites")

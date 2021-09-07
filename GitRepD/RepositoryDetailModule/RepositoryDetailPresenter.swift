@@ -5,10 +5,13 @@
 //  Created by Pavel on 6.09.21.
 //
 
-import Foundation
+import SwiftUI
 import Combine
+import CoreData
 
 class RepositoryDetailPresenter: ObservableObject {
+
+    
     private let interactor: RepositoryDetailInteractor
     private let router: RepositoryDetailRouter?
     
@@ -27,5 +30,9 @@ class RepositoryDetailPresenter: ObservableObject {
     
     func getselectedRepository() {
         interactor.getSingleRepository()
+    }
+    
+    func addItemToDatabase(for context: NSManagedObjectContext) {
+        self.interactor.addItem(for: context)
     }
 }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E980145326E1F14400A2A39B /* GitRepDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980145226E1F14400A2A39B /* GitRepDApp.swift */; };
-		E980145526E1F14400A2A39B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980145426E1F14400A2A39B /* ContentView.swift */; };
+		E980145526E1F14400A2A39B /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980145426E1F14400A2A39B /* FavoritesView.swift */; };
 		E980145726E1F14400A2A39B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E980145626E1F14400A2A39B /* Assets.xcassets */; };
 		E980145A26E1F14400A2A39B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E980145926E1F14400A2A39B /* Preview Assets.xcassets */; };
 		E980145C26E1F14400A2A39B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980145B26E1F14400A2A39B /* Persistence.swift */; };
@@ -33,7 +33,7 @@
 /* Begin PBXFileReference section */
 		E980144F26E1F14400A2A39B /* GitRepD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitRepD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E980145226E1F14400A2A39B /* GitRepDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRepDApp.swift; sourceTree = "<group>"; };
-		E980145426E1F14400A2A39B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E980145426E1F14400A2A39B /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		E980145626E1F14400A2A39B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E980145926E1F14400A2A39B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E980145B26E1F14400A2A39B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 				E980145226E1F14400A2A39B /* GitRepDApp.swift */,
 				E980147426E2102700A2A39B /* Entities */,
 				E9BD496026E516B200651FCC /* RepositorySearchModule */,
-				E980145426E1F14400A2A39B /* ContentView.swift */,
+				E980145426E1F14400A2A39B /* FavoritesView.swift */,
 				E980145626E1F14400A2A39B /* Assets.xcassets */,
 				E980146026E1F14400A2A39B /* Info.plist */,
 				E980145826E1F14400A2A39B /* Preview Content */,
@@ -239,7 +239,7 @@
 				E980145C26E1F14400A2A39B /* Persistence.swift in Sources */,
 				E980146F26E1F49800A2A39B /* UserRepositories.swift in Sources */,
 				E980147B26E2423800A2A39B /* DataModel.swift in Sources */,
-				E980145526E1F14400A2A39B /* ContentView.swift in Sources */,
+				E980145526E1F14400A2A39B /* FavoritesView.swift in Sources */,
 				E9BD496926E6171000651FCC /* RepositoryDetailRouter.swift in Sources */,
 				E980146926E1F39500A2A39B /* GitRepDInteractor.swift in Sources */,
 				E980147E26E247F300A2A39B /* RepositoryCell.swift in Sources */,

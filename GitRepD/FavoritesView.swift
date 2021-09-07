@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  FavoritesView.swift
 //  GitRepD
 //
 //  Created by Pavel Todorov on 3.09.21.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct FavoritesView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
@@ -19,22 +19,26 @@ struct ContentView: View {
     var body: some View {
         
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    Text(item.name!)
+            if (items.isEmpty){
+                EmptyView()
+            } else {
+                List {
+                    ForEach(items, id: \.id) { item in
+                        Text(item.name ?? "N/A")
+                    }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-//            #if os(iOS)
-//                EditButton()
-//                Button(action: addItem) {
-//                    Label("Add item", systemImage: "plus")
-//                }
-//            #endif
-                
-                Button(action: addItem) {
-                    Label("Add Item", systemImage: "plus")
+                .toolbar {
+                    //            #if os(iOS)
+                    EditButton()
+                    //                Button(action: addItem) {
+                    //                    Label("Add item", systemImage: "plus")
+                    //                }
+                    //            #endif
+                    
+                    //                Button(action: addItem) {
+                    //                    Label("Add Item", systemImage: "plus")
+                    //                }
                 }
             }
         }
@@ -45,7 +49,7 @@ struct ContentView: View {
             newItem.timestamp = Date()
             
             newItem.url = "kjndfsjnsdf"
-            newItem.name = "Test"
+            newItem.name = "Test from detailView"
             
             do {
                 try viewContext.save()
@@ -81,8 +85,8 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-struct ContentView_Previews: PreviewProvider {
+struct FavoritesView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        FavoritesView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

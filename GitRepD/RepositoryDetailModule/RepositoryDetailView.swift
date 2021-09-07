@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RepositoryDetailView: View {
     @ObservedObject var presenter: RepositoryDetailPresenter
-    
+    @Environment(\.managedObjectContext) private var viewContext
     var body: some View {
         
         VStack {
@@ -32,6 +32,7 @@ struct RepositoryDetailView: View {
             }
         }
         .navigationBarItems(trailing: Button(action: {
+            self.presenter.addItemToDatabase(for: viewContext)
             print("saved")
         }, label: {
             Image(systemName: "star")
@@ -39,12 +40,6 @@ struct RepositoryDetailView: View {
         .onAppear {
             presenter.getselectedRepository()
         }
-        
-//        Text("Date created: \()")
-//        Text("Language used: \()")
-//        Text("Description: \()")
-//        Text("Hello, World!")
-        
     }
 }
 
