@@ -34,7 +34,9 @@ class GitRepDPresenter: ObservableObject {
     
     func linkBuilder<Content: View>(for repository: UserRepositories, @ViewBuilder content: () -> Content
     ) -> some View {
-      NavigationLink(destination: router.makeGitRepDDetailView(for: repository, model: interactor.model)) {
-        content()
-      }
-    }  }
+        NavigationLink(destination: router.makeGitRepDDetailView(for: repository, model: interactor.model)) {
+            content()
+        }
+    }
+    
+}

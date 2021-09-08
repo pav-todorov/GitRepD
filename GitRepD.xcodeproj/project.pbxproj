@@ -23,14 +23,18 @@
 		E980147B26E2423800A2A39B /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147A26E2423800A2A39B /* DataModel.swift */; };
 		E980147E26E247F300A2A39B /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147D26E247F300A2A39B /* RepositoryCell.swift */; };
 		E980148026E24EF700A2A39B /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980147F26E24EF700A2A39B /* SearchView.swift */; };
+		E9880EC826E8EFAB0021D62E /* FavoritesDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9880EC426E8EFAB0021D62E /* FavoritesDetailPresenter.swift */; };
+		E9880EC926E8EFAB0021D62E /* FavoritesDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9880EC526E8EFAB0021D62E /* FavoritesDetailRouter.swift */; };
+		E9880ECA26E8EFAB0021D62E /* FavoritesDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9880EC626E8EFAB0021D62E /* FavoritesDetailView.swift */; };
+		E9880ECB26E8EFAB0021D62E /* FavoritesDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9880EC726E8EFAB0021D62E /* FavoritesDetailInteractor.swift */; };
+		E9880ECF26E8EFBC0021D62E /* FavoritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9880ECC26E8EFBC0021D62E /* FavoritesInteractor.swift */; };
+		E9880ED026E8EFBC0021D62E /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9880ECD26E8EFBC0021D62E /* FavoritesPresenter.swift */; };
+		E9880ED126E8EFBC0021D62E /* FavoritesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9880ECE26E8EFBC0021D62E /* FavoritesRouter.swift */; };
 		E9BD495F26E4DEAB00651FCC /* EmptySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD495E26E4DEAB00651FCC /* EmptySearchView.swift */; };
 		E9BD496326E5170000651FCC /* RepositoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD496226E5170000651FCC /* RepositoryDetailView.swift */; };
 		E9BD496526E615AB00651FCC /* RepositoryDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD496426E615AA00651FCC /* RepositoryDetailPresenter.swift */; };
 		E9BD496726E6169100651FCC /* RepositoryDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD496626E6169100651FCC /* RepositoryDetailInteractor.swift */; };
 		E9BD496926E6171000651FCC /* RepositoryDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD496826E6171000651FCC /* RepositoryDetailRouter.swift */; };
-		E9CE1CAB26E76692001A71D3 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CE1CAA26E76692001A71D3 /* FavoritesPresenter.swift */; };
-		E9CE1CAD26E766A9001A71D3 /* FavoritesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CE1CAC26E766A9001A71D3 /* FavoritesRouter.swift */; };
-		E9CE1CAF26E766BC001A71D3 /* FavoritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CE1CAE26E766BC001A71D3 /* FavoritesInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,14 +56,18 @@
 		E980147A26E2423800A2A39B /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		E980147D26E247F300A2A39B /* RepositoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 		E980147F26E24EF700A2A39B /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		E9880EC426E8EFAB0021D62E /* FavoritesDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDetailPresenter.swift; sourceTree = "<group>"; };
+		E9880EC526E8EFAB0021D62E /* FavoritesDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDetailRouter.swift; sourceTree = "<group>"; };
+		E9880EC626E8EFAB0021D62E /* FavoritesDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDetailView.swift; sourceTree = "<group>"; };
+		E9880EC726E8EFAB0021D62E /* FavoritesDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDetailInteractor.swift; sourceTree = "<group>"; };
+		E9880ECC26E8EFBC0021D62E /* FavoritesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesInteractor.swift; sourceTree = "<group>"; };
+		E9880ECD26E8EFBC0021D62E /* FavoritesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
+		E9880ECE26E8EFBC0021D62E /* FavoritesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesRouter.swift; sourceTree = "<group>"; };
 		E9BD495E26E4DEAB00651FCC /* EmptySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySearchView.swift; sourceTree = "<group>"; };
 		E9BD496226E5170000651FCC /* RepositoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailView.swift; sourceTree = "<group>"; };
 		E9BD496426E615AA00651FCC /* RepositoryDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailPresenter.swift; sourceTree = "<group>"; };
 		E9BD496626E6169100651FCC /* RepositoryDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailInteractor.swift; sourceTree = "<group>"; };
 		E9BD496826E6171000651FCC /* RepositoryDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailRouter.swift; sourceTree = "<group>"; };
-		E9CE1CAA26E76692001A71D3 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
-		E9CE1CAC26E766A9001A71D3 /* FavoritesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRouter.swift; sourceTree = "<group>"; };
-		E9CE1CAE26E766BC001A71D3 /* FavoritesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,13 +100,14 @@
 		E980145126E1F14400A2A39B /* GitRepD */ = {
 			isa = PBXGroup;
 			children = (
+				E9880EC326E8EF940021D62E /* FavoritesDetailModule */,
+				E980145226E1F14400A2A39B /* GitRepDApp.swift */,
+				E9CE1CA926E76652001A71D3 /* FavoritesModule */,
 				E9BD496126E516D000651FCC /* RepositoryDetailModule */,
 				E980147C26E247D500A2A39B /* Functional Views */,
 				E980147726E21DA500A2A39B /* Utility */,
-				E980145226E1F14400A2A39B /* GitRepDApp.swift */,
 				E980147426E2102700A2A39B /* Entities */,
 				E9BD496026E516B200651FCC /* RepositorySearchModule */,
-				E9CE1CA926E76652001A71D3 /* FavoritesModule */,
 				E980145626E1F14400A2A39B /* Assets.xcassets */,
 				E980146026E1F14400A2A39B /* Info.plist */,
 				E980145826E1F14400A2A39B /* Preview Content */,
@@ -142,6 +151,17 @@
 			path = "Functional Views";
 			sourceTree = "<group>";
 		};
+		E9880EC326E8EF940021D62E /* FavoritesDetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				E9880EC726E8EFAB0021D62E /* FavoritesDetailInteractor.swift */,
+				E9880EC426E8EFAB0021D62E /* FavoritesDetailPresenter.swift */,
+				E9880EC526E8EFAB0021D62E /* FavoritesDetailRouter.swift */,
+				E9880EC626E8EFAB0021D62E /* FavoritesDetailView.swift */,
+			);
+			path = FavoritesDetailModule;
+			sourceTree = "<group>";
+		};
 		E9BD496026E516B200651FCC /* RepositorySearchModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,10 +189,10 @@
 		E9CE1CA926E76652001A71D3 /* FavoritesModule */ = {
 			isa = PBXGroup;
 			children = (
+				E9880ECC26E8EFBC0021D62E /* FavoritesInteractor.swift */,
+				E9880ECD26E8EFBC0021D62E /* FavoritesPresenter.swift */,
+				E9880ECE26E8EFBC0021D62E /* FavoritesRouter.swift */,
 				E980145426E1F14400A2A39B /* FavoritesView.swift */,
-				E9CE1CAA26E76692001A71D3 /* FavoritesPresenter.swift */,
-				E9CE1CAC26E766A9001A71D3 /* FavoritesRouter.swift */,
-				E9CE1CAE26E766BC001A71D3 /* FavoritesInteractor.swift */,
 			);
 			path = FavoritesModule;
 			sourceTree = "<group>";
@@ -256,18 +276,22 @@
 				E980145C26E1F14400A2A39B /* Persistence.swift in Sources */,
 				E980146F26E1F49800A2A39B /* UserRepositories.swift in Sources */,
 				E980147B26E2423800A2A39B /* DataModel.swift in Sources */,
-				E9CE1CAF26E766BC001A71D3 /* FavoritesInteractor.swift in Sources */,
-				E9CE1CAB26E76692001A71D3 /* FavoritesPresenter.swift in Sources */,
 				E980145526E1F14400A2A39B /* FavoritesView.swift in Sources */,
 				E9BD496926E6171000651FCC /* RepositoryDetailRouter.swift in Sources */,
 				E980146926E1F39500A2A39B /* GitRepDInteractor.swift in Sources */,
 				E980147E26E247F300A2A39B /* RepositoryCell.swift in Sources */,
-				E9CE1CAD26E766A9001A71D3 /* FavoritesRouter.swift in Sources */,
 				E980145326E1F14400A2A39B /* GitRepDApp.swift in Sources */,
+				E9880ED026E8EFBC0021D62E /* FavoritesPresenter.swift in Sources */,
+				E9880EC826E8EFAB0021D62E /* FavoritesDetailPresenter.swift in Sources */,
 				E980148026E24EF700A2A39B /* SearchView.swift in Sources */,
+				E9880ECA26E8EFAB0021D62E /* FavoritesDetailView.swift in Sources */,
+				E9880ECF26E8EFBC0021D62E /* FavoritesInteractor.swift in Sources */,
+				E9880ED126E8EFBC0021D62E /* FavoritesRouter.swift in Sources */,
+				E9880EC926E8EFAB0021D62E /* FavoritesDetailRouter.swift in Sources */,
 				E980146726E1F38600A2A39B /* GitRepDRouter.swift in Sources */,
 				E980146D26E1F3FE00A2A39B /* GitRepDView.swift in Sources */,
 				E980145F26E1F14400A2A39B /* GitRepD.xcdatamodeld in Sources */,
+				E9880ECB26E8EFAB0021D62E /* FavoritesDetailInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

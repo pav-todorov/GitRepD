@@ -7,6 +7,10 @@
 
 import Foundation
 
-class Interactor {
+class FavoritesInteractor {
+    let model: DataModel
     
+    init(model: DataModel) {
+        self.model = model
+    }
 }

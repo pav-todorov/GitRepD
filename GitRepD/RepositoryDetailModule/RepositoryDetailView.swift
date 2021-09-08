@@ -52,8 +52,8 @@ struct RepositoryDetailView: View {
         }))
         .onAppear {
             Task {
-                await presenter.getselectedRepository()
-                await presenter.isInDatabase(for: viewContext)
+                await presenter.getselectedRepository(with: viewContext)
+//                await presenter.isInDatabase(for: viewContext)
             }
         }
     }

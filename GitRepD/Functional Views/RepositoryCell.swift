@@ -26,6 +26,8 @@ struct RepositoryCell: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 45, height: 45, alignment: .leading)
+                
+//                ProgressView()
             }
             .frame(width: 45, height: 45, alignment: .leading)
             

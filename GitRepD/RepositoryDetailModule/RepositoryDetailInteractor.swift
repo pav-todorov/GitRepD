@@ -28,7 +28,7 @@ class RepositoryDetailInteractor {
         self.repository = userRepository
     }
     
-    func getSingleRepository() async {
+    func getSingleRepository(with context: NSManagedObjectContext) async {
         
         print("https://api.github.com/repos/\(self.repository.owner.login)/\(repository.name)")
         
@@ -49,9 +49,12 @@ class RepositoryDetailInteractor {
                     
                     DispatchQueue.main.async { [self] in
                         self.model.singleRepository = decodedResponse
+                        Task {
+                            await isInDatabase(for: context)
+                        }
                     }
                     
-                    print("Single repo: \(decodedResponse.created_at) \n \(decodedResponse.language)")
+                    print("Single repo: \(String(describing: decodedResponse.created_at)) \n \(String(describing: decodedResponse.language))")
                     
                     
                     // everything is good, so we can exit
@@ -70,11 +73,11 @@ class RepositoryDetailInteractor {
     func addItem(for context: NSManagedObjectContext) {
         withAnimation {
             let newItem = Repository(context: context)
-            if let singleRepo = self.model.singleRepository {
-                newItem.id = Int32(singleRepo.id)
+            
+            newItem.id = Int32(self.model.singleRepository!.id)
                 newItem.timestamp = Date()
                 newItem.name = self.model.singleRepository!.name
-            }
+            
             //            newItem.repoId = model.singleRepository.id
             
             //            newItem.dateCreated = self.model.singleRepository!.created_at
@@ -93,6 +96,7 @@ class RepositoryDetailInteractor {
         }
     }
     
+    @MainActor
     func isInDatabase(for context: NSManagedObjectContext) async -> Bool  {
         
         if let singleRepo = self.model.singleRepository {
@@ -103,6 +107,7 @@ class RepositoryDetailInteractor {
             
             if let result = try? context.fetch(request) {
                 if (result != []) {
+                    self.model.singleRepository = SingleRepository(id: Int(result.first!.id), name: result.first?.name, created_at: result.first?.dateCreated, language: result.first?.languageUsed, description: result.first?.repoDescription, url: result.first?.url)
                     isRepositoryInDatabase = true
                 } else {
                     isRepositoryInDatabase = false
@@ -113,7 +118,6 @@ class RepositoryDetailInteractor {
     }
     
     func removeItemFromDatabase(for context: NSManagedObjectContext) {
-        //         items[0].forEach(context.delete)
         self.isRepositoryInDatabase = false
         let request: NSFetchRequest<Repository> = Repository.fetchRequest()
         let predicate = NSPredicate(format: "id CONTAINS[cd] %@", String(self.model.singleRepository!.id))

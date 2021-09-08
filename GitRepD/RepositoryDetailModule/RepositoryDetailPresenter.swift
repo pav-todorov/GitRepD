@@ -31,8 +31,8 @@ class RepositoryDetailPresenter: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func getselectedRepository() async {
-        await interactor.getSingleRepository()
+    func getselectedRepository(with context: NSManagedObjectContext) async {
+        await interactor.getSingleRepository(with: context )
     }
     
     func addItemToDatabase(for context: NSManagedObjectContext) {

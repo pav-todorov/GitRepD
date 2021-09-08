@@ -9,12 +9,21 @@ import SwiftUI
 import CoreData
 
 struct FavoritesView: View {
+     var presenter: FavoritesPresenter
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Repository.timestamp, ascending: false)],
         animation: .default)
     private var items: FetchedResults<Repository>
+    @State private var searchText = ""
+//    var searchResults: [String] {
+//            if searchText.isEmpty {
+//                return names
+//            } else {
+//                return names.filter { $0.contains(searchText) }
+//            }
+//        }
     
     var body: some View {
         
@@ -24,10 +33,17 @@ struct FavoritesView: View {
             } else {
                 List {
                     ForEach(items, id: \.id) { item in
-                        Text(item.name ?? "N/A")
+                        self.presenter.linkBuilder(for: Int(item.id)) {
+                        
+                        RepositoryCell(repositoryAvatar: "",
+                                       userName: item.name ?? "N/A",
+                                       repositoryName: item.name ?? "N/A")
+                        }
                     }
                     .onDelete(perform: deleteItems)
                 }
+                .searchable(text: $searchText, prompt: "Search through favorites...")
+                .navigationTitle("Favorites")
                 .toolbar {
                     //            #if os(iOS)
                     EditButton()
@@ -85,8 +101,8 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-struct FavoritesView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavoritesView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
+//struct FavoritesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FavoritesView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//    }
+//}
