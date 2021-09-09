@@ -25,7 +25,7 @@ struct FavoritesDetailView: View {
                 Spacer()
                 
                 Form {
-                    Section(header: Text(String(presenter.singleRepository?.id ?? 0))) {
+                    Section(header: Text(presenter.singleRepository?.name ?? "N/A")) {
                         DetailFormRowView(firstItem: "Date created:", secondItem: presenter.singleRepository?.created_at ?? "N/A")
                         DetailFormRowView(firstItem: "Language used:", secondItem: presenter.singleRepository?.language ?? "N/A")
                         DetailFormRowView(firstItem: "Description", secondItem: presenter.singleRepository?.description ?? "N/A")

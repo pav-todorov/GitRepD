@@ -77,6 +77,11 @@ class RepositoryDetailInteractor {
             newItem.id = Int32(self.model.singleRepository!.id)
                 newItem.timestamp = Date()
                 newItem.name = self.model.singleRepository!.name
+            newItem.languageUsed = self.model.singleRepository?.language
+            newItem.repoDescription = self.model.singleRepository?.description
+            newItem.dateCreated = self.model.singleRepository?.created_at
+            newItem.url = self.model.singleRepository?.url
+            newItem.repoId = Int32(self.model.singleRepository?.id ?? 0)
             
             //            newItem.repoId = model.singleRepository.id
             

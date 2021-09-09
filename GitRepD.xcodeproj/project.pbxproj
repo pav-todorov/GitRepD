@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9658D0E26E9F23E002FB5D7 /* SearchCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9658D0D26E9F23E002FB5D7 /* SearchCoreData.swift */; };
 		E980145326E1F14400A2A39B /* GitRepDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980145226E1F14400A2A39B /* GitRepDApp.swift */; };
 		E980145526E1F14400A2A39B /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980145426E1F14400A2A39B /* FavoritesView.swift */; };
 		E980145726E1F14400A2A39B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E980145626E1F14400A2A39B /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E9658D0D26E9F23E002FB5D7 /* SearchCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoreData.swift; sourceTree = "<group>"; };
 		E980144F26E1F14400A2A39B /* GitRepD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitRepD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E980145226E1F14400A2A39B /* GitRepDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRepDApp.swift; sourceTree = "<group>"; };
 		E980145426E1F14400A2A39B /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				E9880ECD26E8EFBC0021D62E /* FavoritesPresenter.swift */,
 				E9880ECE26E8EFBC0021D62E /* FavoritesRouter.swift */,
 				E980145426E1F14400A2A39B /* FavoritesView.swift */,
+				E9658D0D26E9F23E002FB5D7 /* SearchCoreData.swift */,
 			);
 			path = FavoritesModule;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				E980146B26E1F3AE00A2A39B /* GitRepDPresenter.swift in Sources */,
 				E980147926E21DBB00A2A39B /* Constants.swift in Sources */,
 				E9BD496526E615AB00651FCC /* RepositoryDetailPresenter.swift in Sources */,
+				E9658D0E26E9F23E002FB5D7 /* SearchCoreData.swift in Sources */,
 				E9BD496326E5170000651FCC /* RepositoryDetailView.swift in Sources */,
 				E980147326E1FEDF00A2A39B /* SingleRepository.swift in Sources */,
 				E980145C26E1F14400A2A39B /* Persistence.swift in Sources */,
