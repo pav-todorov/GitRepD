@@ -19,23 +19,26 @@ struct SearchView: View {
         NavigationView {
             List {
                 
-                ForEach(presenter.userRepositories, id: \.id) { repository in
-                    if presenter.userRepositories.last?.id == repository.id {
-                        task {
-                            self.pageNumber += 1
-                            await presenter.fetchUserRepositories(for: searchText, self.pageNumber)
-                            print("SearchView: page number: \(pageNumber)")
-                        }
-                    }
-                    
+                ForEach(Array(self.presenter.userRepositories.enumerated()), id: \.1.id) { index, repository in
                     self.presenter.linkBuilder(for: repository) {
                         RepositoryCell (
                             repositoryAvatar: repository.owner.avatar_url,
                             userName: repository.name,
                             repositoryName: repository.owner.login
                         )
-                            
+                            .onAppear {
+                            if (self.presenter.userRepositories.last?.id == repository.id) {
+                                Task {
+                                    self.pageNumber += 1
+                                    await self.presenter.fetchUserRepositories(for: searchText, self.pageNumber)
+                                    print("SearchView: page number: \(pageNumber)")
+                                }
+                            }
+                        }
                     }
+                    
+                    
+                    
                 } //: ForEach
                 .onDelete(perform: { indexSet in
                     print("\(indexSet) is deleted.")
