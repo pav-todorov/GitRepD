@@ -27,15 +27,17 @@ struct FavoritesView: View {
         if !searchText.isEmpty {
             return items
         } else {
-            return searchItems ?? items
+            
+                items.nsPredicate = NSPredicate(value: true)
+                print("FavoritesView: \(items.first?.name)")
+                return items
         }
+        
     }
     
     var body: some View {
         
         NavigationView {
-
-     
                 List {
                     ForEach(searching, id: \.id) { item in
                         self.presenter.linkBuilder(for: Int(item.id)) {
@@ -49,12 +51,11 @@ struct FavoritesView: View {
                 }
                 .searchable(text: $searchText, prompt: "Search through favorites...")
                 .onChange(of: searchText, perform: { newValue in
-                    self.searchItems!.nsPredicate = NSPredicate(format: "name CONTAINS %@", newValue)
+                    self.items.nsPredicate = NSPredicate(format: "name CONTAINS[cd] %@", newValue)
+
 
                 })
-                .onAppear(perform: {
-                    self.searchItems = items
-                })
+                
                 .navigationTitle("Favorites")
                 .toolbar {
                     //            #if os(iOS)

@@ -9,13 +9,14 @@ import SwiftUI
 
 class GitRepDInteractor {
     let model: DataModel
+    var pageNumber = 1
     
     init(model: DataModel) {
         self.model = model
     }
     
-    func loadRepositories(for userName: String) async {
-        guard let url = URL(string: "https://api.github.com/users/\(userName)/repos") else {
+    func loadRepositories(for userName: String, _ page: Int) async {
+        guard let url = URL(string: "https://api.github.com/users/\(userName)/repos?per_page=10&page=\(page)") else {
             print("Invalid URL")
             return
         }
@@ -30,10 +31,10 @@ class GitRepDInteractor {
         
                             for index in decodedResponse {
                                 DispatchQueue.main.async { [self] in
-                                    self.model.userRepositories.insert(index, at: 0)
+                                    self.model.userRepositories.append(index)
                                 }
         
-                                print("Repo: \(index.name)\n\(index.owner)\n\(index.owner.avatar_url)\n\(index.owner.login)")
+                                print("Repo: \(index.name), page index \(self.pageNumber)")
                             }
         
                             // everything is good, so we can exit
@@ -48,6 +49,13 @@ class GitRepDInteractor {
                 }.resume()
         
         
+    }
+    
+    func getMoreRepositories(for userName: String, _ page: Int) async {
+        self.pageNumber += 1
+        Task {
+            await loadRepositories(for: userName, page)
+        }
     }
     
     func clearArrayOfRepositories() {

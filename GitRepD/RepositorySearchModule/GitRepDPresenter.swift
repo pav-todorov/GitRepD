@@ -24,8 +24,8 @@ class GitRepDPresenter: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func fetchUserRepositories(for user: String) async {
-        await interactor.loadRepositories(for: user)
+    func fetchUserRepositories(for user: String, _ page: Int) async {
+        await interactor.loadRepositories(for: user, page)
     }
     
     func clearArrayOfRepositories() {
@@ -38,5 +38,11 @@ class GitRepDPresenter: ObservableObject {
             content()
         }
     }
+    
+//    func getMoreRepositories(for userName: String) async {
+//        Task {
+//            await self.interactor.loadRepositories(for: userName)
+//        }
+//    }
     
 }

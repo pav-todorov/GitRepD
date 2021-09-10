@@ -13,21 +13,28 @@ struct SearchView: View {
     // MARK: -  Properties
     @ObservedObject var presenter: GitRepDPresenter
     @State var searchText: String = ""
+    @State var pageNumber = 1
     
     var body: some View {
         NavigationView {
             List {
-                //                self.presenter.linkBuilder(for: dummyUserRepo) {
-                //                RepositoryCell(repositoryAvatar: dummyUserRepo.owner.avatar_url, userName: dummyUserRepo.owner.login, repositoryName: dummyUserRepo.name)
-                //                }
                 
                 ForEach(presenter.userRepositories, id: \.id) { repository in
+                    if presenter.userRepositories.last?.id == repository.id {
+                        task {
+                            self.pageNumber += 1
+                            await presenter.fetchUserRepositories(for: searchText, self.pageNumber)
+                            print("SearchView: page number: \(pageNumber)")
+                        }
+                    }
+                    
                     self.presenter.linkBuilder(for: repository) {
                         RepositoryCell (
                             repositoryAvatar: repository.owner.avatar_url,
                             userName: repository.name,
                             repositoryName: repository.owner.login
                         )
+                            
                     }
                 } //: ForEach
                 .onDelete(perform: { indexSet in
@@ -36,14 +43,16 @@ struct SearchView: View {
             } //: List
             .searchable(text: $searchText, prompt: "Search for a repository...")
             .onSubmit(of: SubmitTriggers.search) {
+                self.pageNumber = 1
                 presenter.clearArrayOfRepositories()
                 if (!searchText.isEmpty){
                     Task {
-                        await presenter.fetchUserRepositories(for: searchText.trimmingCharacters(in: .whitespacesAndNewlines))
+                        await presenter.fetchUserRepositories(for: searchText.trimmingCharacters(in: .whitespacesAndNewlines), pageNumber)
                     }
                     
                     
                 } else {
+                    pageNumber = 1
                     presenter.clearArrayOfRepositories()
                 }
                 
@@ -53,17 +62,6 @@ struct SearchView: View {
                     presenter.clearArrayOfRepositories()
                 }
             })
-//            .onChange(of: searchText, perform: { newValue in
-//                if !newValue.isEmpty {
-//                    Task {
-//                        await presenter.fetchUserRepositories(for: newValue.trimmingCharacters(in: .whitespacesAndNewlines))
-//                    }
-//
-//
-//                } else {
-//                    presenter.clearArrayOfRepositories()
-//                }
-//            })
             .listStyle(InsetGroupedListStyle())
             .padding(.vertical, 0)
             .frame(maxWidth: 640)
