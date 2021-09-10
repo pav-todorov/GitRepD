@@ -14,7 +14,6 @@ struct EmptySearchView: View {
         VStack {
             Image(systemName: "binoculars.fill")
                 .font(.largeTitle)
-            
             LinearGradient(gradient:
                             Gradient(colors:
                                         [Color.mint,

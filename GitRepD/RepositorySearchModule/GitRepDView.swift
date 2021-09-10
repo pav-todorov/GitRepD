@@ -21,10 +21,12 @@ struct GitRepDView: View {
                 }
             
             //                    ContentView()
-            FavoritesView(presenter: FavoritesPresenter(interactor: FavoritesInteractor(model: DataModel())))
+            FavoritesView(presenter: FavoritesPresenter(
+                interactor: FavoritesInteractor(
+                    model: DataModel())))
                 .tabItem {
-                    Image(systemName: "star")
-                    Text("Favorites")
+                        Image(systemName: "star")
+                        Text("Favorites")
                 }
             
         } //: TabView

@@ -16,6 +16,7 @@ class GitRepDPresenter: ObservableObject {
     
     @Published var userRepositories: [UserRepositories] = []
     @Published var errorMessage: String = ""
+    @Published var showingAlert = false
     
     init(interactor: GitRepDInteractor) {
         self.interactor = interactor
@@ -23,6 +24,15 @@ class GitRepDPresenter: ObservableObject {
         interactor.model.$userRepositories
             .assign(to: \.userRepositories, on: self)
             .store(in: &cancellables)
+        
+        interactor.$showingAlert
+            .assign(to: \.showingAlert, on: self)
+            .store(in: &cancellables)
+        
+        interactor.$errorMessage
+            .assign(to: \.errorMessage, on: self)
+            .store(in: &cancellables)
+        
     }
     
     func fetchUserRepositories(for user: String, _ page: Int) async {

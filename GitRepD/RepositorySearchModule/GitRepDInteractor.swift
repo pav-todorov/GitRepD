@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-class GitRepDInteractor {
+class GitRepDInteractor: ObservableObject {
     let model: DataModel
     var pageNumber = 1
     
-    @Published var message: String = ""
+    @Published var errorMessage: String = ""
+    @Published var showingAlert = false
     
     init(model: DataModel) {
         self.model = model
@@ -44,11 +45,11 @@ class GitRepDInteractor {
         
                     // if we're still here it means there was a problem
 //                    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-                    self.message = "\(error!.localizedDescription)"
-        
+                    DispatchQueue.main.async {
+                        self.errorMessage = "\(error?.localizedDescription ?? "Oops...\nAPI rate limit exceeded. \nPlease, try again in an hour.")"
+                        self.showingAlert = true
+                    }
                 }.resume()
-        
-        
     }
     
     func getMoreRepositories(for userName: String, _ page: Int) async {

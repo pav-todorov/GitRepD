@@ -14,7 +14,6 @@ struct SearchView: View {
     @ObservedObject var presenter: GitRepDPresenter
     @State var searchText: String = ""
     @State var pageNumber = 1
-    @State private var showingAlert = false
     
     // MARK: -  Body
     var body: some View {
@@ -68,7 +67,7 @@ struct SearchView: View {
                     .opacity(presenter.userRepositories.isEmpty ? 1 : 0)
             }
         } //: NavigationView
-        .alert(presenter.errorMessage, isPresented: $showingAlert) {
+        .alert(presenter.errorMessage, isPresented: $presenter.showingAlert) {
             Button("OK", role: .cancel) { }
         }
     }

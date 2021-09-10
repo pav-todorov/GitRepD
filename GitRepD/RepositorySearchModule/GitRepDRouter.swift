@@ -10,9 +10,10 @@ import SwiftUI
 class GitRepDRouter {
     
     func makeGitRepDDetailView(for repository: UserRepositories, model: DataModel) -> some View {
-//        let presenter = ContentView()
-        
-        return RepositoryDetailView(presenter: RepositoryDetailPresenter(interactor: RepositoryDetailInteractor(model: DataModel(), userRepository: repository)))
-            
+        return RepositoryDetailView(
+            presenter: RepositoryDetailPresenter(
+                interactor: RepositoryDetailInteractor(
+                    model: DataModel(),
+                    userRepository: repository)))
     }
 }

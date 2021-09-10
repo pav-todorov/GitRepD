@@ -15,11 +15,14 @@ struct FavoritesDetailView: View {
     var body: some View {
         
         AsyncImage(url: URL(string: presenter.singleRepository?.owner.avatar_url ?? "")) { image in
-            image.resizable()
+            image
+                .resizable()
+                .scaledToFit()
+            
         } placeholder: {
             ProgressView()
         }
-        .frame(width: 100, height: 100, alignment: .center)
+        .frame(height: 125, alignment: .center)
         
         Form {
             Section(header: Text(presenter.singleRepository?.name ?? "N/A")) {
