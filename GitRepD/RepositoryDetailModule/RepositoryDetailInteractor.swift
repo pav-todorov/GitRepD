@@ -53,11 +53,6 @@ class RepositoryDetailInteractor {
                             await isInDatabase(for: context)
                         }
                     }
-                    
-                    print("Single repo: \(String(describing: decodedResponse.created_at)) \n \(String(describing: decodedResponse.language))")
-                    
-                    
-                    // everything is good, so we can exit
                     return
                 }
             }
@@ -75,20 +70,15 @@ class RepositoryDetailInteractor {
             let newItem = Repository(context: context)
             
             newItem.id = Int32(self.model.singleRepository!.id)
-                newItem.timestamp = Date()
-                newItem.name = self.model.singleRepository!.name
+            newItem.timestamp = Date()
+            newItem.name = self.model.singleRepository!.name
             newItem.languageUsed = self.model.singleRepository?.language
             newItem.repoDescription = self.model.singleRepository?.description
             newItem.dateCreated = self.model.singleRepository?.created_at
-            newItem.url = self.model.singleRepository?.url
+            newItem.url = self.model.singleRepository?.html_url
             newItem.repoId = Int32(self.model.singleRepository?.id ?? 0)
+            newItem.avatarURL = model.singleRepository?.owner.avatar_url
             
-            //            newItem.repoId = model.singleRepository.id
-            
-            //            newItem.dateCreated = self.model.singleRepository!.created_at
-            //            newItem.languageUsed = model.singleRepository!.language
-            ////            newItem.description = self.model.singleRepository?.description
-            //            newItem.url = self.model.singleRepository!.url
             self.isRepositoryInDatabase = true
             do {
                 try context.save()
@@ -112,7 +102,12 @@ class RepositoryDetailInteractor {
             
             if let result = try? context.fetch(request) {
                 if (result != []) {
-                    self.model.singleRepository = SingleRepository(id: Int(result.first!.id), name: result.first?.name, created_at: result.first?.dateCreated, language: result.first?.languageUsed, description: result.first?.repoDescription, url: result.first?.url)
+                    self.model.singleRepository = SingleRepository(id: Int(result.first!.id),
+                                                                   name: result.first?.name,
+                                                                   created_at: result.first?.dateCreated,
+                                                                   language: result.first?.languageUsed,
+                                                                   description: result.first?.repoDescription,
+                                                                   html_url: result.first?.url, owner: SingleRepositoryOwner(avatar_url: result.first?.avatarURL ?? ""))
                     isRepositoryInDatabase = true
                 } else {
                     isRepositoryInDatabase = false

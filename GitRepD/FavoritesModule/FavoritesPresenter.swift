@@ -16,7 +16,6 @@ struct FavoritesPresenter {
     
     init(interactor: FavoritesInteractor) {
         self.interactor = interactor
-        
     }
     
     func linkBuilder<Content: View>(for repositoryId: Int, @ViewBuilder content: () -> Content) -> some View {

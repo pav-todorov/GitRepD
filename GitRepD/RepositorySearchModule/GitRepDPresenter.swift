@@ -15,6 +15,7 @@ class GitRepDPresenter: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var userRepositories: [UserRepositories] = []
+    @Published var errorMessage: String = ""
     
     init(interactor: GitRepDInteractor) {
         self.interactor = interactor
@@ -38,11 +39,4 @@ class GitRepDPresenter: ObservableObject {
             content()
         }
     }
-    
-//    func getMoreRepositories(for userName: String) async {
-//        Task {
-//            await self.interactor.loadRepositories(for: userName)
-//        }
-//    }
-    
 }

@@ -14,11 +14,12 @@ struct SearchView: View {
     @ObservedObject var presenter: GitRepDPresenter
     @State var searchText: String = ""
     @State var pageNumber = 1
+    @State private var showingAlert = false
     
+    // MARK: -  Body
     var body: some View {
         NavigationView {
             List {
-                
                 ForEach(Array(self.presenter.userRepositories.enumerated()), id: \.1.id) { index, repository in
                     self.presenter.linkBuilder(for: repository) {
                         RepositoryCell (
@@ -27,18 +28,14 @@ struct SearchView: View {
                             repositoryName: repository.owner.login
                         )
                             .onAppear {
-                            if (self.presenter.userRepositories.last?.id == repository.id) {
-                                Task {
-                                    self.pageNumber += 1
-                                    await self.presenter.fetchUserRepositories(for: searchText, self.pageNumber)
-                                    print("SearchView: page number: \(pageNumber)")
+                                if (self.presenter.userRepositories.last?.id == repository.id) {
+                                    Task {
+                                        self.pageNumber += 1
+                                        await self.presenter.fetchUserRepositories(for: searchText, self.pageNumber)
+                                    }
                                 }
                             }
-                        }
                     }
-                    
-                    
-                    
                 } //: ForEach
                 .onDelete(perform: { indexSet in
                     print("\(indexSet) is deleted.")
@@ -52,13 +49,10 @@ struct SearchView: View {
                     Task {
                         await presenter.fetchUserRepositories(for: searchText.trimmingCharacters(in: .whitespacesAndNewlines), pageNumber)
                     }
-                    
-                    
                 } else {
                     pageNumber = 1
                     presenter.clearArrayOfRepositories()
                 }
-                
             }
             .onChange(of: searchText, perform: { newValue in
                 if newValue.isEmpty {
@@ -74,14 +68,8 @@ struct SearchView: View {
                     .opacity(presenter.userRepositories.isEmpty ? 1 : 0)
             }
         } //: NavigationView
+        .alert(presenter.errorMessage, isPresented: $showingAlert) {
+            Button("OK", role: .cancel) { }
+        }
     }
 }
-
-//struct SearchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let repos = [dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, dummyUserRepo, ]
-//
-//        return SearchView(repositories: repos, presenter: GitRepDPresenter(interactor: GitRepDInteractor()))
-//
-//    }
-//}

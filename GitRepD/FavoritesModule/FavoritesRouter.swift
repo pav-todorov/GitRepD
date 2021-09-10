@@ -12,8 +12,5 @@ class FavoritesRouter {
     func makeFavoritesDetailView(for repositoryId: Int) -> some View {
         
         return FavoritesDetailView(presenter: FavoritesDetailPresenter(interactor: FavoritesDetailInteractor(model: DataModel()), repository: repositoryId))
-        
-        
-//        RepositoryDetailView(presenter: RepositoryDetailPresenter(interactor: RepositoryDetailInteractor(model: DataModel(), userRepository: dummyUserRepo)))
     }
 }

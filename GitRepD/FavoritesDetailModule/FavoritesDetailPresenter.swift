@@ -30,6 +30,4 @@ class FavoritesDetailPresenter: ObservableObject {
     func fetchRepository(with context: NSManagedObjectContext) async {
         await interactor.fetchRepositoryDetailsFromDB(for: repositoryId, with: context)
     }
-    
 }
-

@@ -22,16 +22,10 @@ struct RepositoryCell: View {
                     .scaledToFit()
                 
             } placeholder: {
-                Image(systemName: "photo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 45, height: 45, alignment: .leading)
                 
-//                ProgressView()
+                ProgressView()
             }
             .frame(width: 45, height: 45, alignment: .leading)
-            
-            
             
             VStack(alignment: .leading) {
                 Text(userName)

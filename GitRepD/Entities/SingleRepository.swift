@@ -17,11 +17,13 @@ struct SingleRepository: Codable {
     //description
     let description: String?
     //link to it
-    let url: String?
+    let html_url: String?
     
-//    let parent: SingleRepositoryOwner
+    let owner: SingleRepositoryOwner
 }
 
-//struct SingleRepositoryOwner: Codable {
-//    let avatar_url: String
-//}
+struct SingleRepositoryOwner: Codable {
+    // Username
+    let avatar_url: String
+    
+}
