@@ -36,9 +36,21 @@ struct SearchView: View {
                             }
                     }
                 } //: ForEach
-                .onDelete(perform: { indexSet in
-                    print("\(indexSet) is deleted.")
+                .swipeActions(edge: .leading, content: {
+                    Button {
+                        print("swiped")
+                    } label: {
+                        Label("Save", systemImage: "star.fill")
+                    }
+                    .tint(.yellow)
                 })
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    Button(role: .destructive) {
+                        print("swiped")
+                    } label: {
+                        Label("Delete", systemImage: "trash.fill")
+                    }
+                }
             } //: List
             .searchable(text: $searchText, prompt: "Search for a repository...")
             .onSubmit(of: SubmitTriggers.search) {
