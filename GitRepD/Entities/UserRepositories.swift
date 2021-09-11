@@ -12,6 +12,7 @@ struct UserRepositories: Codable, Identifiable {
     // Repository name
     let name: String
     let owner: Owner
+    let url: String
 }
 
 struct Owner: Codable {

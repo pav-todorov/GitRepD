@@ -51,6 +51,8 @@ struct RepositoryDetailView: View {
         }, label: {
             Image(systemName: presenter.isRepositoryInDatabase ? "star.fill" : "star")
         }))
+        /* If for some reason (slow internet, for example) the name is nil (most likely due to not being fetched yet) don't allow to be saved because it might cause database problems or just display unnecessary empty object, else safely add it */
+        .disabled((presenter.singleRepository?.name == nil) ? true : false)
         .onAppear {
             Task {
                 await presenter.getselectedRepository(with: viewContext)
@@ -73,8 +75,8 @@ struct FormRowView: View {
     }
 }
 
-struct RepositoryDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        RepositoryDetailView(presenter: RepositoryDetailPresenter(interactor: RepositoryDetailInteractor(model: DataModel(), userRepository: dummyUserRepo)))
-    }
-}
+//struct RepositoryDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RepositoryDetailView(presenter: RepositoryDetailPresenter(interactor: RepositoryDetailInteractor(model: DataModel(), userRepository: dummyUserRepo)))
+//    }
+//}

@@ -21,6 +21,8 @@ struct FavoritesView: View {
     @State private var showingAlert = false
     @State private var errorMessage = ""
     
+    @State var isRepositorySaved = true
+    
     var repositoryItems: FetchedResults<Repository> {
         if !searchText.isEmpty {
             return fetchedItemsFromDB
@@ -40,7 +42,7 @@ struct FavoritesView: View {
                         
                         RepositoryCell(repositoryAvatar: item.avatarURL ?? "",
                                        userName: item.name ?? "N/A",
-                                       repositoryName: item.name ?? "N/A")
+                                       repositoryName: item.name ?? "N/A", includeStarIndicator: false, isRepositorySaved: isRepositorySaved)
                         
                     }
                     
@@ -51,6 +53,9 @@ struct FavoritesView: View {
             .onChange(of: searchText, perform: { newValue in
                 self.fetchedItemsFromDB.nsPredicate = NSPredicate(format: "name CONTAINS[cd] %@", newValue)
             })
+            .listStyle(InsetGroupedListStyle())
+            .padding(.vertical, 0)
+            .frame(maxWidth: 640)
             .navigationTitle("Favorites")
             .toolbar {
                 EditButton()

@@ -30,8 +30,6 @@ class RepositoryDetailInteractor {
     
     func getSingleRepository(with context: NSManagedObjectContext) async {
         
-        print("https://api.github.com/repos/\(self.repository.owner.login)/\(repository.name)")
-        
         guard let url = URL(string: "https://api.github.com/repos/\(self.repository.owner.login)/\(repository.name)") else {
             print("Invalid URL")
             
@@ -65,6 +63,7 @@ class RepositoryDetailInteractor {
         
     }
     
+    /// This method adds a single repository item to the CoreData database.
     func addItem(for context: NSManagedObjectContext) {
         withAnimation {
             let newItem = Repository(context: context)
@@ -91,6 +90,7 @@ class RepositoryDetailInteractor {
         }
     }
     
+    /// This function checks if a single repository with particular id has been saved to the CoreData database.
     @MainActor
     func isInDatabase(for context: NSManagedObjectContext) async -> Bool  {
         
@@ -102,12 +102,12 @@ class RepositoryDetailInteractor {
             
             if let result = try? context.fetch(request) {
                 if (result != []) {
-                    self.model.singleRepository = SingleRepository(id: Int(result.first!.id),
-                                                                   name: result.first?.name,
-                                                                   created_at: result.first?.dateCreated,
-                                                                   language: result.first?.languageUsed,
-                                                                   description: result.first?.repoDescription,
-                                                                   html_url: result.first?.url, owner: SingleRepositoryOwner(avatar_url: result.first?.avatarURL ?? ""))
+//                    self.model.singleRepository = SingleRepository(id: Int(result.first!.id),
+//                                                                   name: result.first?.name,
+//                                                                   created_at: result.first?.dateCreated,
+//                                                                   language: result.first?.languageUsed,
+//                                                                   description: result.first?.repoDescription,
+//                                                                   html_url: result.first?.url, owner: SingleRepositoryOwner(avatar_url: result.first?.avatarURL ?? ""))
                     isRepositoryInDatabase = true
                 } else {
                     isRepositoryInDatabase = false
@@ -117,6 +117,7 @@ class RepositoryDetailInteractor {
         return isRepositoryInDatabase
     }
     
+    /// This method removes a single repository from the CoreData database.
     func removeItemFromDatabase(for context: NSManagedObjectContext) {
         self.isRepositoryInDatabase = false
         let request: NSFetchRequest<Repository> = Repository.fetchRequest()

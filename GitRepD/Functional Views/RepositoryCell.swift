@@ -12,6 +12,9 @@ struct RepositoryCell: View {
     let repositoryAvatar: String
     let userName: String
     let repositoryName: String
+    @State var includeStarIndicator: Bool
+    @State var isRepositorySaved: Bool
+    
     
     // MARK: -  Body
     var body: some View {
@@ -35,17 +38,24 @@ struct RepositoryCell: View {
                 Text(repositoryName)
                     .fontWeight(.light)
                     .font(.footnote)
+                
             }
+            
+            Spacer()
+            
+            Image(systemName: "star.fill")
+                .foregroundColor(.yellow)
+                .opacity((includeStarIndicator && (isRepositorySaved)) ? 1 : 0)
             
         }
     }
 }
 
 // MARK: -  Preview
-struct RepositoryCell_Previews: PreviewProvider {
-    static var previews: some View {
-        RepositoryCell(repositoryAvatar: "", userName: "User Name", repositoryName: "Repository name")
-            .previewLayout(.sizeThatFits)
-            .padding()
-    }
-}
+//struct RepositoryCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RepositoryCell(repositoryAvatar: "", userName: "User Name", repositoryName: "Repository name", includeStarIndicator: true, isRepositorySaved: true)
+//            .previewLayout(.sizeThatFits)
+//            .padding()
+//    }
+//}

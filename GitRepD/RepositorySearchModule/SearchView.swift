@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import CoreData
 
 struct SearchView: View {
     
@@ -15,16 +16,21 @@ struct SearchView: View {
     @State var searchText: String = ""
     @State var pageNumber = 1
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
     // MARK: -  Body
     var body: some View {
         NavigationView {
             List {
+                
                 ForEach(Array(self.presenter.userRepositories.enumerated()), id: \.1.id) { index, repository in
+                    
                     self.presenter.linkBuilder(for: repository) {
                         RepositoryCell (
                             repositoryAvatar: repository.owner.avatar_url,
                             userName: repository.name,
-                            repositoryName: repository.owner.login
+                            repositoryName: repository.owner.login, includeStarIndicator: true,
+                            isRepositorySaved: presenter.isInDatabase(for: viewContext, and: repository.id)
                         )
                             .onAppear {
                                 if (self.presenter.userRepositories.last?.id == repository.id) {
@@ -35,22 +41,32 @@ struct SearchView: View {
                                 }
                             }
                     }
+                    .swipeActions(edge: .leading, content: {
+                        Button {
+                            Task {
+                                await presenter.addItem(for: viewContext, with: repository.url)
+                                
+                            }
+                        } label: {
+                            Label("Save", systemImage: "star.fill")
+                        }
+                        .tint(.yellow)
+                        // If the repository is indeed in the database - don't allow to be saved again, in order to prevent duplicates.
+                        .disabled(presenter.isInDatabase(for: viewContext,
+                                                            and: repository.id) ? true : false)
+                    })
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            self.presenter.removeItemFromDatabase(for: viewContext, and: repository.id)
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                        // If the repository is NOT in the database - don't allow the delete swipe action.
+                        .disabled(presenter.isInDatabase(for: viewContext,
+                                                            and: repository.id) ? false : true)
+                    }
                 } //: ForEach
-                .swipeActions(edge: .leading, content: {
-                    Button {
-                        print("swiped")
-                    } label: {
-                        Label("Save", systemImage: "star.fill")
-                    }
-                    .tint(.yellow)
-                })
-                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                    Button(role: .destructive) {
-                        print("swiped")
-                    } label: {
-                        Label("Delete", systemImage: "trash.fill")
-                    }
-                }
+                
             } //: List
             .searchable(text: $searchText, prompt: "Search for a repository...")
             .onSubmit(of: SubmitTriggers.search) {

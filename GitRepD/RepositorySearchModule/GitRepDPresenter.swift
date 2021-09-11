@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import CoreData
 
 class GitRepDPresenter: ObservableObject {
     private let interactor: GitRepDInteractor
@@ -17,6 +18,7 @@ class GitRepDPresenter: ObservableObject {
     @Published var userRepositories: [UserRepositories] = []
     @Published var errorMessage: String = ""
     @Published var showingAlert = false
+    @Published var isRepositoryInDatabase: Bool = false
     
     init(interactor: GitRepDInteractor) {
         self.interactor = interactor
@@ -31,6 +33,10 @@ class GitRepDPresenter: ObservableObject {
         
         interactor.$errorMessage
             .assign(to: \.errorMessage, on: self)
+            .store(in: &cancellables)
+        
+        interactor.$isRepositoryInDatabase
+            .assign(to: \.isRepositoryInDatabase, on: self)
             .store(in: &cancellables)
         
     }
@@ -48,5 +54,17 @@ class GitRepDPresenter: ObservableObject {
         NavigationLink(destination: router.makeGitRepDDetailView(for: repository, model: interactor.model)) {
             content()
         }
+    }
+    
+    @MainActor func isInDatabase(for context: NSManagedObjectContext, and id: Int)  -> Bool {
+         interactor.isInDatabase(for: context, and: id)
+    }
+    
+    func addItem(for context: NSManagedObjectContext, with url: String) async {
+        await self.interactor.addItem(for: context, url: url)
+    }
+    
+    func removeItemFromDatabase(for context: NSManagedObjectContext, and id: Int) {
+        self.interactor.removeItemFromDatabase(for: context, and: id)
     }
 }
