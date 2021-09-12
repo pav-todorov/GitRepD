@@ -5,7 +5,7 @@
 //  Created by Pavel Todorov on 3.09.21.
 //
 
-import Foundation
+import SwiftUI
 
 // MARK: -  Endpoints
 let userRepositories: String = "https://api.github.com/users/octocat/repos"
@@ -14,4 +14,8 @@ let userRepositories: String = "https://api.github.com/users/octocat/repos"
 let userReposEndPoint: String = "https://api.github.com/repos/"
 
 // MARK: -  UI
+
 // MARK: -  UX
+
+/// Use this feedback manager for haptic feedbacks.
+let feedback = UINotificationFeedbackGenerator()

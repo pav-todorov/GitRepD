@@ -19,11 +19,8 @@ struct RepositoryCell: View {
     @State var isRepositorySaved: Bool = false
     @State private var singleRepository: SingleRepository?
     
-    @Binding var needToRefreshCellData: Bool
-    
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        //        entity: Repository.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Repository.name, ascending: false)],
         animation: .default)
     private var items: FetchedResults<Repository>
@@ -58,17 +55,11 @@ struct RepositoryCell: View {
             
             Image(systemName: "star.fill")
                 .foregroundColor(.yellow)
-                .opacity((includeStarIndicator && (isRepositorySaved)) ? 1 : 0)
+                .opacity((includeStarIndicator && (items.map{ Int($0.id) }.contains(repositoryId))) ? 1 : 0)
                 .onAppear {
                     isInDatabase(for: viewContext, and: repositoryId)
                 }
-                .onChange(of: needToRefreshCellData) { _ in
-                    isInDatabase(for: viewContext, and: repositoryId)
-                    DispatchQueue.main.async {
-                        needToRefreshCellData.toggle()
-                    }
-                    
-                }
+            
         }
         
     }
@@ -89,35 +80,6 @@ struct RepositoryCell: View {
             }
         }
         
-    }
-    
-    func getSingleRepository(with url: String) async {
-        
-        guard let url = URL(string: url) else {
-            fatalError("wrong url")
-        }
-        
-        print("GitRepDInteractor url: \(url)")
-        
-        let request = URLRequest(url: url)
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            if let data = data {
-                if let decodedResponse: SingleRepository = try? JSONDecoder().decode(SingleRepository.self, from: data) {
-                    // we have good data – go back to the main thread
-                    
-                    self.singleRepository = decodedResponse
-                    
-                    return
-                }
-            }
-            
-            // if we're still here it means there was a problem
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-            
-            
-        }.resume()
     }
 }
 

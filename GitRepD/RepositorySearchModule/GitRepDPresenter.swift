@@ -60,8 +60,8 @@ class GitRepDPresenter: ObservableObject {
          interactor.isInDatabase(for: context, and: id)
     }
     
-    func addItem(for context: NSManagedObjectContext, with url: String) async {
-        await self.interactor.addItem(for: context, url: url)
+    func getAndSaveSingleRepository(with url: String, for context: NSManagedObjectContext) async  {
+        await self.interactor.getAndSaveSingleRepository(with: url, for: context)
     }
     
     func removeItemFromDatabase(for context: NSManagedObjectContext, and id: Int) {

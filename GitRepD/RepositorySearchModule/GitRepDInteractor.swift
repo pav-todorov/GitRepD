@@ -14,13 +14,6 @@ class GitRepDInteractor: ObservableObject {
     var pageNumber = 1
     
     @Published var isRepositoryInDatabase: Bool = false
-    @Published private var singleRepository: SingleRepository?
-    
-    @FetchRequest(
-        //        entity: Repository.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Repository.name, ascending: false)],
-        animation: .default)
-    private var items: FetchedResults<Repository>
     
     /// If there is a connection error --> this will be the message
     @Published var errorMessage: String = ""
@@ -56,7 +49,7 @@ class GitRepDInteractor: ObservableObject {
                     return
                 }
             }
-
+            
             DispatchQueue.main.async {
                 self.errorMessage = "\(error?.localizedDescription ?? "Oops...\nAPI rate limit exceeded. \nPlease, try again in an hour.")"
                 self.showingAlert = true
@@ -93,7 +86,7 @@ class GitRepDInteractor: ObservableObject {
         return isRepositoryInDatabase
     }
     
-    func getSingleRepository(with url: String) async {
+    func getAndSaveSingleRepository(with url: String, for context: NSManagedObjectContext) async {
         
         guard let url = URL(string: url) else {
             fatalError("wrong url")
@@ -108,52 +101,50 @@ class GitRepDInteractor: ObservableObject {
             if let data = data {
                 if let decodedResponse: SingleRepository = try? JSONDecoder().decode(SingleRepository.self, from: data) {
                     // we have good data – go back to the main thread
-                    
-                    self.singleRepository = decodedResponse
-                    
+                    Task {
+                        await self.addItem(for: context, with: decodedResponse)
+                    }
                     return
                 }
             }
             
-            // if we're still here it means there was a problem
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-            
-            
+            DispatchQueue.main.async {
+                // if we're still here it means there was a problem
+                self.errorMessage = "\(error?.localizedDescription ?? "Unknown error")."
+                self.showingAlert.toggle()
+            }
+
         }.resume()
     }
     
-    func addItem(for context: NSManagedObjectContext, url: String) async {
-        await getSingleRepository(with: url)
+    func addItem(for context: NSManagedObjectContext, with repository: SingleRepository) async {
         
-        if let singleRepository = self.singleRepository {
-                let newItem = Repository(context: context)
+            let newItem = Repository(context: context)
+            
+            newItem.id = Int32(repository.id)
+            newItem.timestamp = Date()
+            newItem.name = repository.name
+            newItem.languageUsed = repository.language
+            newItem.repoDescription = repository.description
+            newItem.dateCreated = repository.created_at
+            newItem.url = repository.html_url
+            newItem.repoId = Int32(repository.id)
+            newItem.avatarURL = repository.owner.avatar_url
+            
+            do {
+                try context.save()
+            } catch {
+                let nsError = error as NSError
                 
-                newItem.id = Int32(singleRepository.id)
-                newItem.timestamp = Date()
-                newItem.name = singleRepository.name
-                newItem.languageUsed = singleRepository.language
-                newItem.repoDescription = singleRepository.description
-                newItem.dateCreated = singleRepository.created_at
-                newItem.url = singleRepository.html_url
-                newItem.repoId = Int32(singleRepository.id)
-                newItem.avatarURL = singleRepository.owner.avatar_url
-                
-//                self.isRepositoryInDatabase = true
-                do {
-                    try context.save()
-                } catch {
-                    // Replace this implementation with code to handle the error appropriately.
-                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    let nsError = error as NSError
-                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-                }
-        }
-        
+                self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
+                self.showingAlert.toggle()
+                return
+            }
+  
     }
     
     /// This method removes a single repository from the CoreData database.
     func removeItemFromDatabase(for context: NSManagedObjectContext, and id: Int) {
-//        self.isRepositoryInDatabase = false
         let request: NSFetchRequest<Repository> = Repository.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", String(id))
         request.predicate = predicate
@@ -167,10 +158,11 @@ class GitRepDInteractor: ObservableObject {
         do {
             try context.save()
         } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            
+            self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
+            self.showingAlert.toggle()
+            return
         }
     }
     

@@ -43,7 +43,7 @@ struct FavoritesView: View {
                         
                         RepositoryCell(repositoryAvatar: item.avatarURL ?? "",
                                        userName: item.name ?? "N/A",
-                                       repositoryName: item.name ?? "N/A", repositoryId: Int(item.id), includeStarIndicator: false, needToRefreshCellData: $cellNeedsRefresh)
+                                       repositoryName: item.name ?? "N/A", repositoryId: Int(item.id), includeStarIndicator: false)
                         
                     }
                     

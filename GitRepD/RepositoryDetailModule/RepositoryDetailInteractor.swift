@@ -18,6 +18,11 @@ class RepositoryDetailInteractor {
         animation: .default)
     private var items: FetchedResults<Repository>
     
+    /// If there is a connection error --> this will be the message
+    @Published var errorMessage: String = ""
+    /// If there is a connection error --> this will trigger the appearance of the alert message
+    @Published var showingAlert = false
+    
     let model: DataModel
     private let repository: UserRepositories
     
@@ -82,10 +87,10 @@ class RepositoryDetailInteractor {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                
+                self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
+                self.showingAlert.toggle()
             }
         }
     }
@@ -102,12 +107,6 @@ class RepositoryDetailInteractor {
             
             if let result = try? context.fetch(request) {
                 if (result != []) {
-//                    self.model.singleRepository = SingleRepository(id: Int(result.first!.id),
-//                                                                   name: result.first?.name,
-//                                                                   created_at: result.first?.dateCreated,
-//                                                                   language: result.first?.languageUsed,
-//                                                                   description: result.first?.repoDescription,
-//                                                                   html_url: result.first?.url, owner: SingleRepositoryOwner(avatar_url: result.first?.avatarURL ?? ""))
                     isRepositoryInDatabase = true
                 } else {
                     isRepositoryInDatabase = false
@@ -134,10 +133,10 @@ class RepositoryDetailInteractor {
         do {
             try context.save()
         } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            
+            self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
+            self.showingAlert.toggle()
         }
     }
 }

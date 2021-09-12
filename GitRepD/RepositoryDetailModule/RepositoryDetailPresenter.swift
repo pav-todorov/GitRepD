@@ -17,6 +17,10 @@ class RepositoryDetailPresenter: ObservableObject {
     
     @Published var singleRepository: SingleRepository?
     @Published var isRepositoryInDatabase: Bool = false
+    /// If there is a connection error --> this will be the message
+    @Published var errorMessage: String = ""
+    /// If there is a connection error --> this will trigger the appearance of the alert message
+    @Published var showingAlert = false
     
     init(interactor: RepositoryDetailInteractor) {
         self.interactor = interactor
@@ -28,6 +32,14 @@ class RepositoryDetailPresenter: ObservableObject {
         
         self.interactor.$isRepositoryInDatabase
             .assign(to: \.isRepositoryInDatabase, on: self)
+            .store(in: &cancellables)
+        
+        self.interactor.$errorMessage
+            .assign(to: \.errorMessage, on: self)
+            .store(in: &cancellables)
+        
+        self.interactor.$showingAlert
+            .assign(to: \.showingAlert, on: self)
             .store(in: &cancellables)
     }
     

@@ -35,12 +35,17 @@ struct RepositoryDetailView: View {
                                 secondItem: presenter.singleRepository?.html_url ?? "N/A")
                         .onTapGesture {
                             UIApplication.shared.open((URL(string: presenter.singleRepository?.html_url ?? "https://google.com") ?? URL(string: "https://google.com"))!)
-                            
                         }
                 }
             }
         }
+        .alert(presenter.errorMessage, isPresented: $presenter.showingAlert) {
+            Button("OK", role: .cancel) { }
+        }
         .navigationBarItems(trailing: Button(action: {
+            // Play haptic feedback.
+            feedback.notificationOccurred(.success)
+            
             Task {
                 if await self.presenter.isInDatabase(for: viewContext) {
                     presenter.removeItemFromDatabase(for: viewContext)
