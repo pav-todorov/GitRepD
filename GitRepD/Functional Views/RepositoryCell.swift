@@ -22,7 +22,7 @@ struct RepositoryCell: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Repository.name, ascending: false)],
-        animation: .default)
+        animation: .linear)
     private var items: FetchedResults<Repository>
     
     // MARK: -  Body
@@ -56,31 +56,11 @@ struct RepositoryCell: View {
             Image(systemName: "star.fill")
                 .foregroundColor(.yellow)
                 .opacity((includeStarIndicator && (items.map{ Int($0.id) }.contains(repositoryId))) ? 1 : 0)
-                .onAppear {
-                    isInDatabase(for: viewContext, and: repositoryId)
-                }
             
         }
         
     }
     
-    /// This function checks if a single repository with particular id has been saved to the CoreData database.
-    func isInDatabase(for context: NSManagedObjectContext, and id: Int) {
-        
-        let predicate = NSPredicate(format: "id == %@", String(id))
-        
-        let request: NSFetchRequest<Repository> = Repository.fetchRequest()
-        request.predicate = predicate
-        
-        if let result = try? context.fetch(request) {
-            if (result != []) {
-                isRepositorySaved = true
-            } else {
-                isRepositorySaved = false
-            }
-        }
-        
-    }
 }
 
 // MARK: -  Preview
