@@ -22,6 +22,7 @@ struct FavoritesView: View {
     @State private var errorMessage = ""
     
     @State var isRepositorySaved = true
+    @State var cellNeedsRefresh: Bool = false
     
     var repositoryItems: FetchedResults<Repository> {
         if !searchText.isEmpty {
@@ -42,7 +43,7 @@ struct FavoritesView: View {
                         
                         RepositoryCell(repositoryAvatar: item.avatarURL ?? "",
                                        userName: item.name ?? "N/A",
-                                       repositoryName: item.name ?? "N/A", includeStarIndicator: false, isRepositorySaved: isRepositorySaved)
+                                       repositoryName: item.name ?? "N/A", repositoryId: Int(item.id), includeStarIndicator: false, needToRefreshCellData: $cellNeedsRefresh)
                         
                     }
                     
@@ -80,10 +81,3 @@ struct FavoritesView: View {
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()

@@ -56,9 +56,7 @@ class GitRepDInteractor: ObservableObject {
                     return
                 }
             }
-            
-            // if we're still here it means there was a problem
-            //                    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+
             DispatchQueue.main.async {
                 self.errorMessage = "\(error?.localizedDescription ?? "Oops...\nAPI rate limit exceeded. \nPlease, try again in an hour.")"
                 self.showingAlert = true
@@ -165,7 +163,6 @@ class GitRepDInteractor: ObservableObject {
                 context.delete(object)
             }
         }
-        
         
         do {
             try context.save()

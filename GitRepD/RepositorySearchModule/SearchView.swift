@@ -15,7 +15,7 @@ struct SearchView: View {
     @ObservedObject var presenter: GitRepDPresenter
     @State var searchText: String = ""
     @State var pageNumber = 1
-    
+    @State var cellNeedsRefresh = false
     @Environment(\.managedObjectContext) private var viewContext
     
     // MARK: -  Body
@@ -29,10 +29,10 @@ struct SearchView: View {
                         RepositoryCell (
                             repositoryAvatar: repository.owner.avatar_url,
                             userName: repository.name,
-                            repositoryName: repository.owner.login, includeStarIndicator: true,
-                            isRepositorySaved: presenter.isInDatabase(for: viewContext, and: repository.id)
+                            repositoryName: repository.owner.login, repositoryId: repository.id, includeStarIndicator: true, needToRefreshCellData: $cellNeedsRefresh
                         )
                             .onAppear {
+                                // If the user hits the last cell, fetch more repositories of the same GitHub user, i.e., same search query.
                                 if (self.presenter.userRepositories.last?.id == repository.id) {
                                     Task {
                                         self.pageNumber += 1
@@ -43,14 +43,18 @@ struct SearchView: View {
                     }
                     .swipeActions(edge: .leading, content: {
                         Button {
+                            
                             Task {
-                                await presenter.addItem(for: viewContext, with: repository.url)
                                 
+                                await presenter.addItem(for: viewContext, with: repository.url)
+                                cellNeedsRefresh.toggle()
                             }
+   
                         } label: {
                             Label("Save", systemImage: "star.fill")
                         }
                         .tint(.yellow)
+                        
                         // If the repository is indeed in the database - don't allow to be saved again, in order to prevent duplicates.
                         .disabled(presenter.isInDatabase(for: viewContext,
                                                             and: repository.id) ? true : false)
@@ -58,6 +62,7 @@ struct SearchView: View {
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
                             self.presenter.removeItemFromDatabase(for: viewContext, and: repository.id)
+                            cellNeedsRefresh.toggle()
                         } label: {
                             Label("Delete", systemImage: "trash.fill")
                         }

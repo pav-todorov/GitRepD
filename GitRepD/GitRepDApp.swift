@@ -19,8 +19,6 @@ struct GitRepDApp: App {
         WindowGroup {
             
             GitRepDView(presenter: presenter)
-            
-//            ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
 
