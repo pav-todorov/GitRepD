@@ -8,12 +8,22 @@
 import Foundation
 
 struct SingleRepository: Codable {
+    let id: Int
+    let name: String?
     //date created
-    let createdAt: String
+    let created_at: String?
     //language used
-    let language: String
+    let language: String?
     //description
-    let description: String
+    let description: String?
     //link to it
-    let url: String
+    let html_url: String?
+    
+    let owner: SingleRepositoryOwner
+}
+
+struct SingleRepositoryOwner: Codable {
+    // Username
+    let avatar_url: String
+    
 }
