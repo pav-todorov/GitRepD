@@ -8,6 +8,8 @@ The architecture of the app is __VIPER__ with few twists due to the **SwiftUI** 
 
 __Combine__, __CoreData__ and __async/await__ functions has also been used.
 
+A _.gitignore_ following the recommendations of GitHub had been added for convenience.
+
 ## App Specification
 The app starts off with 2-tab bars. One for repository searches and another for browsing through favorites (saved repositories). After the user searches for a repository and upon selecting one by tapping, a detailed screen appears that displays more information about the selected item (image, repository name, date created, language used, description and a URL with an option to follow it upon tap). The user can save the selected repository either by tapping on the star button at the detail screen or simply by swiping from the leading edge to the trailing from the search screen. The delete action is the same but from the other direction (if in database). The aforementioned is applicable to the favorites screen, except for the star button at the detail view.
 
