@@ -89,8 +89,10 @@ class RepositoryDetailInteractor {
             } catch {
                 let nsError = error as NSError
                 
+                DispatchQueue.main.async {
                 self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
                 self.showingAlert.toggle()
+                }
             }
         }
     }
@@ -135,8 +137,10 @@ class RepositoryDetailInteractor {
         } catch {
             let nsError = error as NSError
             
+            DispatchQueue.main.async {
             self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
             self.showingAlert.toggle()
+            }
         }
     }
 }

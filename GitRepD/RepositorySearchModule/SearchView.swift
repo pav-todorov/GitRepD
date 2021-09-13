@@ -109,7 +109,11 @@ struct SearchView: View {
             }
         } //: NavigationView
         .alert(presenter.errorMessage, isPresented: $presenter.showingAlert) {
-            Button("OK", role: .cancel) { }
+            Button("OK", role: .cancel) {  }
+            .onAppear {
+                feedback.notificationOccurred(.error)
+            }
         }
+        
     }
 }

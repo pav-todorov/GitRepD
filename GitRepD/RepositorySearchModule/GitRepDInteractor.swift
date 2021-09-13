@@ -136,9 +136,11 @@ class GitRepDInteractor: ObservableObject {
             } catch {
                 let nsError = error as NSError
                 
+                DispatchQueue.main.async {
                 self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
                 self.showingAlert.toggle()
                 return
+                }
             }
   
     }
@@ -160,8 +162,11 @@ class GitRepDInteractor: ObservableObject {
         } catch {
             let nsError = error as NSError
             
-            self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
-            self.showingAlert.toggle()
+            DispatchQueue.main.async {
+                self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
+                self.showingAlert.toggle()
+            }
+            
             return
         }
     }

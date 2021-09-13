@@ -41,6 +41,9 @@ struct RepositoryDetailView: View {
         }
         .alert(presenter.errorMessage, isPresented: $presenter.showingAlert) {
             Button("OK", role: .cancel) { }
+            .onAppear {
+                feedback.notificationOccurred(.error)
+            }
         }
         .navigationBarItems(trailing: Button(action: {
             // Play haptic feedback.

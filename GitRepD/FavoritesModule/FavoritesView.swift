@@ -64,6 +64,9 @@ struct FavoritesView: View {
         }
         .alert(errorMessage, isPresented: $showingAlert) {
             Button("OK", role: .cancel) { }
+            .onAppear {
+                feedback.notificationOccurred(.error)
+            }
         }
     }
     
@@ -74,8 +77,11 @@ struct FavoritesView: View {
             do {
                 try viewContext.save()
             } catch {
-                self.errorMessage = "Oops, \(offsets.map { fetchedItemsFromDB[$0] }.first?.name ?? "N/A") repository couldn't be deleted. Please, restart the app and try again."
-                self.showingAlert.toggle()
+                DispatchQueue.main.async {
+                    self.errorMessage = "Oops, \(offsets.map { fetchedItemsFromDB[$0] }.first?.name ?? "N/A") repository couldn't be deleted. Please, restart the app and try again."
+                    self.showingAlert.toggle()
+                }
+                
                 return
             }
         }
