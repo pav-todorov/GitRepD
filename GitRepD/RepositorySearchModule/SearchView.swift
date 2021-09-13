@@ -81,7 +81,7 @@ struct SearchView: View {
                 } //: ForEach
                 
             } //: List
-            .searchable(text: $searchText, prompt: "Search for a repository...")
+            .searchable(text: $searchText, prompt: "Find repositories by user...")
             .onSubmit(of: SubmitTriggers.search) {
                 self.pageNumber = 1
                 presenter.clearArrayOfRepositories()
