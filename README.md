@@ -21,7 +21,7 @@ No external libraries are needed for installation because the entire app is buil
 
 What is worth to mention is that upon cloning the project, you may want to clean the build folder before initial build because the app might crash due to CoreData. In order to do that you need to go to:
 
-__XCode 13__ (or newer) -> Product (from the menu bar at the top) -> Clean Build Folder
+__Xcode 13__ (or newer) -> Product (from the menu bar at the top) -> Clean Build Folder
 
 Alternatively, the cmd + shift + k key combination should do the trick.
 
