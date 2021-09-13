@@ -4,7 +4,7 @@ GitRepD is a GitHub repository app that lets you browse through user repositorie
 ## Technologies and architecture
 GitRepD is based on **iOS 15** and __Swift 5.5__ using __XCode 13.0 beta 5__. The app is **entirely native**, making it free from external dependencies and more reliable in terms of faster updates, bug fixes and future design changes.
 
-The architecture of the app is __VIPER__ with few twists due to the **SwiftUI** nature. For example, the data model or the Entities (which is the most inner layer in clean architecture) needs to be tightly coupled with the persistence (which sits in the most outer layer). This doesn’t break the rule of clean architecture where the inner layer should know nothing about the outer layer. This is so because VIPER doesn’t translate well to SwiftUI, so some compromises had to be made.
+The architecture of the app is __VIPER__ with few twists due to the **SwiftUI** nature. For example, the data model or the Entities (which is the most inner layer in clean architecture) needs to be tightly coupled with the persistence (which sits in the most outer layer). This does break the rule of clean architecture where the inner layer should know nothing about the outer layer. This is so because VIPER doesn’t translate well to SwiftUI, so some compromises had to be made.
 
 __Combine__, __CoreData__ and __async/await__ functions has also been used.
 
