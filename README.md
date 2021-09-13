@@ -27,6 +27,9 @@ Alternatively, the cmd + shift + k key combination should do the trick.
 
 Also, if you have an older version of the app installed, you should delete it and re-install before launching the new version because the app might crash due to the older version of the CoreData database if there are any changes to the database context.
 
+Another important note is that you might want to add a new scheme if such doesn't exist in order to build and run the application. You can do that through:
+__Xcode 13__ -> Product -> Scheme -> New Scheme -> Ok
+
 ## Known issues
 The empty search view’s arrow pointing to the search bar is set statically and does not accommodate the screen size of the bigger iPhone models.
 
