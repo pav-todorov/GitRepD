@@ -34,6 +34,8 @@ The VIPER architecture is not entirely abided to, especially regarding the persi
 
 Due to the current design of the pagination algorithm, an alert regarding an empty query is not possible.
 
+Sometimes, upon quick scroll from the bottom of the list (if the list is too big) to the top, the app might crash. It’s not clear if this is because of Xcode being in beta or due to some not very well handled optional value.
+
 ## Planned changes/additions
 Dynamic adjustment of the position of the moving arrow pointing to the search bar at the empty search view.
 
