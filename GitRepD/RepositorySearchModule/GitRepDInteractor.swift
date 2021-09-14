@@ -95,8 +95,6 @@ class GitRepDInteractor: ObservableObject {
             fatalError("wrong url")
         }
         
-        print("GitRepDInteractor url: \(url)")
-        
         let request = URLRequest(url: url)
         
         URLSession.shared.dataTask(with: request) { data, response, error in

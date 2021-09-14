@@ -84,8 +84,9 @@ struct EmptySearchView: View {
                                 self.isAnimating.toggle()
                             }
                 } //: OnAppear
-            /* If the keyboard's current height is not 0, i.e. if the keyboard is being displayed, then hide the arrow by bringing its opacity to 0 because the the user has already tapped on the search bar and the arrow has served its purpose. */
-//                .opacity(keyboardResponder.currentHeight != 0 ? 0 : 1)
+            /* OPTIONAL:
+             If the keyboard's current height is not 0, i.e. if the keyboard is being displayed, then hide the arrow by bringing its opacity to 0 because the the user has already tapped on the search bar and the arrow has served its purpose. */
+            //.opacity(keyboardResponder.currentHeight != 0 ? 0 : 1)
             
             /* If the keyboard appears - calculate the necessary changes to the offset that need to be applied, in order for the arrow to be right below the search bar */
                 .offset(y: isAnimating ? -145*scaleFactor + keyboardResponder.currentHeight*0.25 : -120*scaleFactor + keyboardResponder.currentHeight*0.25)
@@ -99,7 +100,6 @@ struct EmptySearchView: View {
                     .linear(duration: 1)
                     .repeatForever(autoreverses: true)) {
                         self.isAnimating.toggle()
-                        print(isAnimating)
                     }
         }
     }
@@ -121,17 +121,17 @@ class KeyboardResponder: ObservableObject {
         _center.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     @objc func keyBoardWillShow(notification: Notification) {
-    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                withAnimation {
-                   currentHeight = keyboardSize.height
-                }
-            }
-        }
-    @objc func keyBoardWillHide(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             withAnimation {
-               currentHeight = 0
+                currentHeight = keyboardSize.height
             }
         }
+    }
+    @objc func keyBoardWillHide(notification: Notification) {
+        withAnimation {
+            currentHeight = 0
+        }
+    }
     
 }
 

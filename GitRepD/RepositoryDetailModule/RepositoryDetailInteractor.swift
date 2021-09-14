@@ -52,6 +52,10 @@ class RepositoryDetailInteractor: ObservableObject {
             }
             
             // if we're still here it means there was a problem
+            DispatchQueue.main.async {
+            self.errorMessage = "Fetch failed: \(error?.localizedDescription ?? "Unknown error")"
+            self.showingAlert.toggle()
+            }
             print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
             
             
