@@ -33,7 +33,7 @@ Another important note is that you might want to add a new scheme if such doesn'
 __Xcode 13__ -> Product -> Scheme -> New Scheme -> Ok
 
 ## Known issues
-The empty search view’s arrow pointing to the search bar is set statically and does not accommodate the screen size of the bigger iPhone models.
+~~The empty search view’s arrow pointing to the search bar is set statically and does not accommodate the screen size of the bigger iPhone models.~~
 
 The VIPER architecture is not entirely abided to, especially regarding the persistence due to a bug in SwiftUI’s @Environment wrapper. This issue, forces us to pass the database context from the view to the interactor or else it won’t work.
 
@@ -42,7 +42,7 @@ Due to the current design of the pagination algorithm, an alert regarding an emp
 Sometimes, upon quick scroll from the bottom of the list (if the list is too big) to the top, the app might crash. It’s not clear if this is because of Xcode being in beta or due to some not very well handled optional value.
 
 ## Planned changes/additions
-Dynamic adjustment of the position of the moving arrow pointing to the search bar at the empty search view.
+~~Dynamic adjustment of the position of the moving arrow pointing to the search bar at the empty search view.~~
 
 To include a star button at the detail screen of the favorites/saved repositories.
 
