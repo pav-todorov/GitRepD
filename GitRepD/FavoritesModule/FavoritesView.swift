@@ -56,12 +56,13 @@ struct FavoritesView: View {
             })
             .listStyle(InsetGroupedListStyle())
             .padding(.vertical, 0)
-            .frame(maxWidth: 640)
+            .frame(idealWidth: 640)
             .navigationTitle("Favorites")
             .toolbar {
                 EditButton()
             }
-        }
+        } //: NavigationView
+        .navigationViewStyle(StackNavigationViewStyle())
         .alert(errorMessage, isPresented: $showingAlert) {
             Button("OK", role: .cancel) { }
             .onAppear {

@@ -98,13 +98,14 @@ struct SearchView: View {
             })
             .listStyle(InsetGroupedListStyle())
             .padding(.vertical, 0)
-            .frame(maxWidth: 640)
+            .frame(idealWidth: 640)
             .navigationBarTitle("Search")
             .overlay {
                 EmptySearchView()
                     .opacity(presenter.userRepositories.isEmpty ? 1 : 0)
             }
         } //: NavigationView
+        .navigationViewStyle(StackNavigationViewStyle())
         .alert(presenter.errorMessage, isPresented: $presenter.showingAlert) {
             Button("OK", role: .cancel) {  }
             .onAppear {
