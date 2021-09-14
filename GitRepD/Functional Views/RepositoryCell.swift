@@ -18,7 +18,7 @@ struct RepositoryCell: View {
     @State var includeStarIndicator: Bool
     @State var isRepositorySaved: Bool = false
     @State private var singleRepository: SingleRepository?
-    
+
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Repository.name, ascending: false)],

@@ -15,7 +15,9 @@ struct SearchView: View {
     @ObservedObject var presenter: GitRepDPresenter
     @State var searchText: String = ""
     @State var pageNumber = 1
+    
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.isSearching) var isSearching
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Repository.name, ascending: false)],

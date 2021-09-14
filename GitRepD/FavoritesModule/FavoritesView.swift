@@ -10,19 +10,19 @@ import CoreData
 
 struct FavoritesView: View {
     var presenter: FavoritesPresenter
+    
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         entity: Repository.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Repository.timestamp, ascending: false)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Repository.timestamp,
+                                           ascending: false)],
         animation: .default)
     var fetchedItemsFromDB: FetchedResults<Repository>
+    
     @State var searchItems: FetchedResults<Repository>?
     @State private var searchText = ""
     @State private var showingAlert = false
     @State private var errorMessage = ""
-    
-    @State var isRepositorySaved = true
-    @State var cellNeedsRefresh: Bool = false
     
     var repositoryItems: FetchedResults<Repository> {
         if !searchText.isEmpty {

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct EmptySearchView: View {
-    @State private var isAnimating: Bool = false
+    @State private var isAnimating: Bool = Bool()
+    @ObservedObject var keyboardResponder = KeyboardResponder()
     
     /// Depending on the size of the device, increase the x and y position of the arrow, depending on the scale factor.
     var scaleFactor: CGFloat  {
@@ -34,6 +35,13 @@ struct EmptySearchView: View {
                 // iPhone XS Max/11 Pro Max
                 return 1.90
                 
+            case 2532:
+                return 1.70
+                
+            case 2778:
+                // iPhone 12 Pro Max
+                return 1.98
+                
             case 1792:
                 // iPhone XR/ 11
                 return 1.90
@@ -45,10 +53,7 @@ struct EmptySearchView: View {
         } else {
             return 1
         }
-        
-//        return value
     }
-    
     
     
     var body: some View {
@@ -62,8 +67,8 @@ struct EmptySearchView: View {
                                          Color.blue]),
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
-                .frame(width: 200, height: 50, alignment: .center)
-                .mask(Text("Start typing to search for GitHub repositories."))
+                .frame(width: 250, height: 50, alignment: .center)
+                .mask(Text("Start typing and tap search for GitHub repositories."))
                 .multilineTextAlignment(.center)
             
         }
@@ -71,23 +76,69 @@ struct EmptySearchView: View {
         .padding(.trailing, 50)
         .overlay(
             Image(systemName: "arrow.up")
-                .offset(y: isAnimating ? -145*scaleFactor : -120*scaleFactor)
+                .onAppear {
+                    withAnimation(
+                        Animation
+                            .linear(duration: 1)
+                            .repeatForever(autoreverses: true)) {
+                                self.isAnimating.toggle()
+                            }
+                } //: OnAppear
+            /* If the keyboard's current height is not 0, i.e. if the keyboard is being displayed, then hide the arrow by bringing its opacity to 0 because the the user has already tapped on the search bar and the arrow has served its purpose. */
+//                .opacity(keyboardResponder.currentHeight != 0 ? 0 : 1)
+            
+            /* If the keyboard appears - calculate the necessary changes to the offset that need to be applied, in order for the arrow to be right below the search bar */
+                .offset(y: isAnimating ? -145*scaleFactor + keyboardResponder.currentHeight*0.25 : -120*scaleFactor + keyboardResponder.currentHeight*0.25)
                 .font(.largeTitle)
             , alignment: .top)
-        .onAppear {
+        
+        /* When the keyboard is summoned, the animation stops and that is why we need to observe that and restart the animation or else it will stay static */
+        .onChange(of: keyboardResponder.currentHeight) { newValue in
             withAnimation(
                 Animation
                     .linear(duration: 1)
                     .repeatForever(autoreverses: true)) {
                         self.isAnimating.toggle()
+                        print(isAnimating)
                     }
-        } //: OnAppear
+        }
     }
     
 }
 
-struct EmptySearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmptySearchView()
+/// This is a class that receives notifications on whether the keyboard is on screen and provides its current height.
+class KeyboardResponder: ObservableObject {
+    
+    @Published var currentHeight: CGFloat = 0
+    
+    var _center: NotificationCenter
+    
+    init(center: NotificationCenter = .default) {
+        _center = center
+        
+        //4. Tell the notification centre to listen to the system keyboardWillShow and keyboardWillHide notification
+        _center.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        _center.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    @objc func keyBoardWillShow(notification: Notification) {
+    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                withAnimation {
+                   currentHeight = keyboardSize.height
+                }
+            }
+        }
+    @objc func keyBoardWillHide(notification: Notification) {
+            withAnimation {
+               currentHeight = 0
+            }
+        }
+    
 }
+
+
+//struct EmptySearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let showArrow: Bool = true
+//        EmptySearchView(showArrow: showArrow)
+//    }
+//}

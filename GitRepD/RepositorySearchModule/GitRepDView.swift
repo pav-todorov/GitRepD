@@ -20,7 +20,6 @@ struct GitRepDView: View {
                     Text("Search")
                 }
             
-            //                    ContentView()
             FavoritesView(presenter: FavoritesPresenter(
                 interactor: FavoritesInteractor(
                     model: DataModel())))
