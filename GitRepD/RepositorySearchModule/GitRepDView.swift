@@ -30,7 +30,6 @@ struct GitRepDView: View {
                 }
             
         } //: TabView
-        
     }
 }
 

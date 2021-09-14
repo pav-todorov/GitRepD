@@ -16,7 +16,7 @@ struct SearchView: View {
     @State var searchText: String = ""
     @State var pageNumber = 1
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Repository.name, ascending: false)],
         animation: .default)
@@ -26,7 +26,6 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             List {
-                
                 ForEach(Array(self.presenter.userRepositories.enumerated()), id: \.1.id) { index, repository in
                     
                     self.presenter.linkBuilder(for: repository) {
@@ -38,7 +37,6 @@ struct SearchView: View {
                             includeStarIndicator: true
                         )
                             .onAppear {
-                                
                                 // If the user hits the last cell, fetch more repositories of the same GitHub user, i.e., same search query.
                                 if (self.presenter.userRepositories.last?.id == repository.id) {
                                     Task {
@@ -55,7 +53,6 @@ struct SearchView: View {
                             
                             Task {
                                 await presenter.getAndSaveSingleRepository(with: repository.url, for: viewContext)
-
                             }
                             
                         } label: {
@@ -63,7 +60,7 @@ struct SearchView: View {
                         }
                         .tint(.yellow)
                         // If the repository is indeed in the database - don't allow to be saved again, in order to prevent duplicates.
-                        .disabled(items.map{ Int($0.id) }.contains(repository.id) ? true : false)
+                        .disabled((items.map{ Int($0.id) }.contains(repository.id)) ? true : false)
                     })
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
@@ -114,6 +111,5 @@ struct SearchView: View {
                 feedback.notificationOccurred(.error)
             }
         }
-        
     }
 }

@@ -50,7 +50,7 @@ struct FavoritesView: View {
                 } //: ForEach
                 .onDelete(perform: deleteItems)
             } //: List
-            .searchable(text: $searchText, prompt: "Search through favorites...")
+            .searchable(text: $searchText, prompt: "Search through favourites...")
             .onChange(of: searchText, perform: { newValue in
                 self.fetchedItemsFromDB.nsPredicate = NSPredicate(format: "name CONTAINS[cd] %@", newValue)
             })

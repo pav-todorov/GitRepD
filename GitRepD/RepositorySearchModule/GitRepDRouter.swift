@@ -13,7 +13,7 @@ class GitRepDRouter {
         return RepositoryDetailView(
             presenter: RepositoryDetailPresenter(
                 interactor: RepositoryDetailInteractor(
-                    model: DataModel(),
+                    model: model,
                     userRepository: repository)))
     }
 }

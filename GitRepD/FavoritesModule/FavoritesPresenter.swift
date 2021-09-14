@@ -23,5 +23,4 @@ struct FavoritesPresenter {
             content()
         }
     }
-    
 }

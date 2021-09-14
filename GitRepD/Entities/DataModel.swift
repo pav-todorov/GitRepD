@@ -10,4 +10,7 @@ import Combine
 final class DataModel {
     @Published var userRepositories: [UserRepositories] = []
     @Published var singleRepository: SingleRepository?
+    deinit {
+        print("DataModel has been deinitialized")
+    }
 }

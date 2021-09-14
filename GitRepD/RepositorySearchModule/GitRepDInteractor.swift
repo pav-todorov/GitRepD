@@ -20,6 +20,9 @@ class GitRepDInteractor: ObservableObject {
     /// If there is a connection error --> this will trigger the appearance of the alert message
     @Published var showingAlert = false
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    
     init(model: DataModel) {
         self.model = model
     }

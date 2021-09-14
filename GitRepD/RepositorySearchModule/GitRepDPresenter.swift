@@ -49,8 +49,7 @@ class GitRepDPresenter: ObservableObject {
         interactor.clearArrayOfRepositories()
     }
     
-    func linkBuilder<Content: View>(for repository: UserRepositories, @ViewBuilder content: () -> Content
-    ) -> some View {
+    func linkBuilder<Content: View>(for repository: UserRepositories, @ViewBuilder content: () -> Content) -> some View {
         NavigationLink(destination: router.makeGitRepDDetailView(for: repository, model: interactor.model)) {
             content()
         }

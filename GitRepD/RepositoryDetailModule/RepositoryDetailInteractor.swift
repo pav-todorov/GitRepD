@@ -10,13 +10,8 @@ import Combine
 import CoreData
 
 
-class RepositoryDetailInteractor {
+class RepositoryDetailInteractor: ObservableObject {
     @Published var isRepositoryInDatabase: Bool = false
-    @FetchRequest(
-        //        entity: Repository.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Repository.name, ascending: false)],
-        animation: .default)
-    private var items: FetchedResults<Repository>
     
     /// If there is a connection error --> this will be the message
     @Published var errorMessage: String = ""
@@ -25,9 +20,7 @@ class RepositoryDetailInteractor {
     
     let model: DataModel
     private let repository: UserRepositories
-    
-    private var cancellables = Set<AnyCancellable>()
-    
+        
     init(model: DataModel, userRepository: UserRepositories) {
         self.model = model
         self.repository = userRepository
@@ -48,8 +41,6 @@ class RepositoryDetailInteractor {
             if let data = data {
                 if let decodedResponse: SingleRepository = try? JSONDecoder().decode(SingleRepository.self, from: data) {
                     // we have good data – go back to the main thread
-                    
-                    
                     DispatchQueue.main.async { [self] in
                         self.model.singleRepository = decodedResponse
                         Task {
@@ -71,17 +62,20 @@ class RepositoryDetailInteractor {
     /// This method adds a single repository item to the CoreData database.
     func addItem(for context: NSManagedObjectContext) {
         withAnimation {
+            
+            if let singleRepo = self.model.singleRepository {
+            
             let newItem = Repository(context: context)
             
-            newItem.id = Int32(self.model.singleRepository!.id)
+            newItem.id = Int32(singleRepo.id)
             newItem.timestamp = Date()
-            newItem.name = self.model.singleRepository!.name
-            newItem.languageUsed = self.model.singleRepository?.language
-            newItem.repoDescription = self.model.singleRepository?.description
-            newItem.dateCreated = self.model.singleRepository?.created_at
-            newItem.url = self.model.singleRepository?.html_url
-            newItem.repoId = Int32(self.model.singleRepository?.id ?? 0)
-            newItem.avatarURL = model.singleRepository?.owner.avatar_url
+            newItem.name = singleRepo.name
+            newItem.languageUsed = singleRepo.language
+            newItem.repoDescription = singleRepo.description
+            newItem.dateCreated = singleRepo.created_at
+            newItem.url = singleRepo.html_url
+            newItem.repoId = Int32(singleRepo.id)
+            newItem.avatarURL = singleRepo.owner.avatar_url
             
             self.isRepositoryInDatabase = true
             do {
@@ -93,6 +87,7 @@ class RepositoryDetailInteractor {
                 self.errorMessage = "\(nsError.userInfo).\nPlease, restart the app and try again."
                 self.showingAlert.toggle()
                 }
+            }
             }
         }
     }

@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct RepositoryDetailView: View {
     @ObservedObject var presenter: RepositoryDetailPresenter
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Repository.timestamp, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<Repository>
     
     var body: some View {
         
@@ -22,7 +28,6 @@ struct RepositoryDetailView: View {
             }
             .frame(width: 100, height: 100)
 
-            
             Form {
                 Section(header: Text(presenter.singleRepository?.name ?? "N/A")) {
                     FormRowView(firstItem: "Date created:",
@@ -37,6 +42,11 @@ struct RepositoryDetailView: View {
                             UIApplication.shared.open((URL(string: presenter.singleRepository?.html_url ?? "https://google.com") ?? URL(string: "https://google.com"))!)
                         }
                 }
+            }
+        }
+        .onAppear {
+            Task {
+                await presenter.getselectedRepository(with: viewContext)
             }
         }
         .alert(presenter.errorMessage, isPresented: $presenter.showingAlert) {
@@ -56,17 +66,15 @@ struct RepositoryDetailView: View {
                     presenter.addItemToDatabase(for: viewContext)
                 }
             }
+            
         }, label: {
-            Image(systemName: presenter.isRepositoryInDatabase ? "star.fill" : "star")
+            Image(systemName: items.map{ Int($0.id) }.contains(presenter.singleRepository?.id) ? "star.fill" : "star")
         }))
         /* If for some reason (slow internet, for example) the name is nil (most likely due to not being fetched yet) don't allow to be saved because it might cause database problems or just display unnecessary empty object, else safely add it */
         .disabled((presenter.singleRepository?.name == nil) ? true : false)
-        .onAppear {
-            Task {
-                await presenter.getselectedRepository(with: viewContext)
-            }
-        }
+        
     }
+    
 }
 
 struct FormRowView: View {
@@ -75,9 +83,11 @@ struct FormRowView: View {
     
     var body: some View {
         HStack {
-            Text(firstItem).foregroundColor(Color.gray)
+            Text(firstItem)
+                .foregroundColor(Color.gray)
             Spacer()
             Text(secondItem)
+                .multilineTextAlignment(.trailing)
             
         }
     }

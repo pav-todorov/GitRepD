@@ -16,6 +16,7 @@ class RepositoryDetailPresenter: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var singleRepository: SingleRepository?
+    
     @Published var isRepositoryInDatabase: Bool = false
     /// If there is a connection error --> this will be the message
     @Published var errorMessage: String = ""
@@ -41,6 +42,10 @@ class RepositoryDetailPresenter: ObservableObject {
         self.interactor.$showingAlert
             .assign(to: \.showingAlert, on: self)
             .store(in: &cancellables)
+    }
+    
+    deinit {
+        print("RepositoryDetailPresenter has been deinitialized")
     }
     
     func getselectedRepository(with context: NSManagedObjectContext) async {
