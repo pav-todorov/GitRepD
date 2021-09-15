@@ -44,7 +44,7 @@ struct RepositoryDetailView: View {
             .listSectionSeparator(.hidden)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
             
-                Section(header: Text(presenter.singleRepository?.name ?? "N/A")) {
+                Section(header: Text("Quick overview:")) {
                     FormRowView(firstItem: "Date created:",
                                 secondItem: presenter.singleRepository?.created_at ?? "N/A")
                     FormRowView(firstItem: "Language used:",
@@ -70,6 +70,7 @@ struct RepositoryDetailView: View {
                 feedback.notificationOccurred(.error)
             }
         }
+        .navigationTitle(presenter.singleRepository?.name ?? "N/A")
         .navigationBarItems(trailing: Button(action: {
             // Play haptic feedback.
             feedback.notificationOccurred(.success)
