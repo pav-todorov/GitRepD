@@ -10,7 +10,9 @@ import CoreData
 
 struct RepositoryDetailView: View {
     @ObservedObject var presenter: RepositoryDetailPresenter
+    
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.colorScheme) var colorScheme
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Repository.timestamp, ascending: true)],
@@ -20,15 +22,28 @@ struct RepositoryDetailView: View {
     var body: some View {
         
         VStack {
-                    
-            AsyncImage(url: URL(string: presenter.singleRepository?.owner.avatar_url ?? "")) { image in
-                image.resizable()
-            } placeholder: {
-                ProgressView()
-            }
-            .frame(width: 100, height: 100)
-
             Form {
+            Section() {
+                AsyncImage(url: URL(string: presenter.singleRepository?.owner.avatar_url ?? "")) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                    
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(height: 125, alignment: .center)
+                .clipShape(Circle())
+                .overlay(Circle()
+                            .stroke(Color.black .opacity(0.8), lineWidth: 4))
+                .overlay(Circle()
+                            .stroke(Color.white, lineWidth: 4))
+                .shadow(color: .gray .opacity(colorScheme == .dark ? 0 : 1), radius: 10)
+            }
+            .listRowBackground(Color(UIColor.systemGroupedBackground))
+            .listSectionSeparator(.hidden)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+            
                 Section(header: Text(presenter.singleRepository?.name ?? "N/A")) {
                     FormRowView(firstItem: "Date created:",
                                 secondItem: presenter.singleRepository?.created_at ?? "N/A")
